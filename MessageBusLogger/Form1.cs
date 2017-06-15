@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Azure;
+using Microsoft.ServiceBus;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,13 @@ namespace MessageBusLogger
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void subscrBtn_Click(object sender, EventArgs e)
+        {
+            string connectionString = CloudConfigurationManager.GetSetting("Microsoft.ServiceBus.ConnectionString");
+
+            var namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
         }
     }
 }
