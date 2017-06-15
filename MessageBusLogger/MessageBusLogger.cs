@@ -13,20 +13,21 @@ using System.Windows.Forms;
 
 namespace MessageBusLogger
 {
-    public partial class Form1 : Form
+    public partial class MessageBusLogger : Form
     {
-        private const string SUBSCRIPTION_NAME = "messageBusLogger_subscr";
-        public Form1()
+        private const string SUBSCRIPTION_NAME = "messageBusLogger";
+
+        private string connectionString = CloudConfigurationManager.GetSetting("Microsoft.ServiceBus.ConnectionString");
+        private NamespaceManager namespaceManager;
+
+        public MessageBusLogger()
         {
             InitializeComponent();
+            namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
         }
 
         private async void subscrBtn_Click(object sender, EventArgs e)
         {
-            string connectionString = CloudConfigurationManager.GetSetting("Microsoft.ServiceBus.ConnectionString");
-
-            var namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
-
             var topicList = await namespaceManager.GetTopicsAsync();
 
             foreach (TopicDescription topic in topicList)

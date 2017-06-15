@@ -1,6 +1,6 @@
 ﻿namespace MessageBusLogger
 {
-    partial class Form1
+    partial class MessageBusLogger
     {
         /// <summary>
         /// Required designer variable.
@@ -33,22 +33,24 @@
             // 
             // subscrBtn
             // 
-            this.subscrBtn.Location = new System.Drawing.Point(105, 55);
+            this.subscrBtn.Location = new System.Drawing.Point(140, 68);
+            this.subscrBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.subscrBtn.Name = "subscrBtn";
-            this.subscrBtn.Size = new System.Drawing.Size(75, 23);
+            this.subscrBtn.Size = new System.Drawing.Size(100, 28);
             this.subscrBtn.TabIndex = 0;
             this.subscrBtn.Text = "Subscribe";
             this.subscrBtn.UseVisualStyleBackColor = true;
             this.subscrBtn.Click += new System.EventHandler(this.subscrBtn_Click);
             // 
-            // Form1
+            // MessageBusLogger
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(379, 322);
             this.Controls.Add(this.subscrBtn);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "MessageBusLogger";
+            this.Text = "Message Bus Logger";
             this.ResumeLayout(false);
 
         }
