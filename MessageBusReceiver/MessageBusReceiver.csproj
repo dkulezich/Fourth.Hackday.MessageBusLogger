@@ -36,6 +36,12 @@
     <Reference Include="Fourth.Orchestration.Messaging.Azure">
       <HintPath>..\Fourth\Fourth.Orchestration.Messaging.Azure.dll</HintPath>
     </Reference>
+    <Reference Include="Fourth.Orchestration.Model">
+      <HintPath>..\Fourth\Fourth.Orchestration.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Fourth.Orchestration.Storage.Azure">
+      <HintPath>..\Fourth\Fourth.Orchestration.Storage.Azure.dll</HintPath>
+    </Reference>
     <Reference Include="Google.ProtocolBuffers, Version=2.4.1.555, Culture=neutral, PublicKeyToken=55f7125234beb589, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.ProtocolBuffers.2.4.1.555\lib\net40\Google.ProtocolBuffers.dll</HintPath>
       <Private>True</Private>
