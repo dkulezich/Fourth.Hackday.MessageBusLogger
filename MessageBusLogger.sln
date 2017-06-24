@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusLogger", "Message
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBuilderHelper", "MessageBuilderHelper\MessageBuilderHelper.csproj", "{560386FB-4F0C-474D-8A78-A8A235B10538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusReceiver", "MessageBusReceiver\MessageBusReceiver.csproj", "{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{560386FB-4F0C-474D-8A78-A8A235B10538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{560386FB-4F0C-474D-8A78-A8A235B10538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{560386FB-4F0C-474D-8A78-A8A235B10538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
