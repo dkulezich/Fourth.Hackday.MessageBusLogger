@@ -4,10 +4,15 @@ namespace DbCreator.Model
 {
     public class MessageContent
     {
-        [Required]
-        public int Id { get; set; }
+        [Key]
+        public long Id { get; set; }
 
         [Required]
         public string Message { get; set; }
+        
+        public long MessageDetailsId { get; set; }
+
+        [Required]
+        public virtual MessageDetails MessageDetails { get; set; }
     }
 }
