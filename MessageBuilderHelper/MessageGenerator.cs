@@ -1,5 +1,6 @@
 ﻿using System;
 using Fourth.Orchestration.Model.ProductCatalogue;
+using People = Fourth.Orchestration.Model.People;
 using Common = Fourth.Orchestration.Model.Common;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,27 @@ namespace MessageBuilderHelper
             newProductLocationBuilder.AddLocationAssignments(newLocationAssignment.Build());
 
             return newProductLocationBuilder.Build();
+        }
+
+        public People.Events.AccountCreated CreateAccountCreated()
+        {
+            var builder = People.Events.AccountCreated.CreateBuilder();
+
+            builder.SetInternalId("FAS_TEST")
+                    .SetEmailAddress("test_fas_4gki32uoi")
+                    .SetExternalId("")
+                    .SetFirstName("test_4gki32uoi")
+                    .SetInternalId("")
+                    .SetLastName("")
+                    .SetStatus(People.Events.AccountStatus.ACTIVE)
+                    .SetLocale("")
+                    .SetCustomerCanonicalId("")
+                    .SetLastName("fas_4gki32uoi")
+                    .SetSource(People.Events.SourceSystem.R9);
+
+            var message = builder.Build();
+
+            return message;
         }
     }
 }

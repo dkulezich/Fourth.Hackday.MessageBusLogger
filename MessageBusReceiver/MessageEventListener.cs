@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Linq;
 using Google.ProtocolBuffers;
 using System;
+using System.Collections.Generic;
 
 namespace MessageBusReceiver
 {
@@ -32,10 +33,20 @@ namespace MessageBusReceiver
                 .OrderBy(a => a.FullName)
                 .Select(a => a.FullName).ToList();
 
-            Type classType = assembly.GetType(types[121]);
+            var handlers = new List<IMessageHandler>();
 
-            var type = typeof(MessageHandler<>).MakeGenericType(new[] { classType });
-            messageListener.RegisterHandler(Activator.CreateInstance(type) as IMessageHandler);
+            for (int i = 0; i < types.Count; i++)
+            {
+                if(i == 103 || i == 121)
+                {
+                    Type classType = assembly.GetType(types[i]);
+                    var type = typeof(MessageHandler<>).MakeGenericType(new[] { classType });
+                    var handler = Activator.CreateInstance(type) as IMessageHandler;
+                    handlers.Add(handler);
+                }
+            }
+
+            messageListener.RegisterHandlers(handlers.ToArray());
             messageListener.StartListener();
         }
 

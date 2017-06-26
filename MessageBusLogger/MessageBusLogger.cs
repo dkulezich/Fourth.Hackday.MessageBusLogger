@@ -16,7 +16,7 @@ namespace MessageBusLogger
 {
     public partial class MessageBusLogger : Form
     {
-        private const string SUBSCRIPTION_NAME = "messageBusLogger";
+        private const string SUBSCRIPTION_NAME = "ilian";
 
         private string connectionString = CloudConfigurationManager.GetSetting("Microsoft.ServiceBus.ConnectionString");
         private NamespaceManager namespaceManager;
@@ -28,7 +28,7 @@ namespace MessageBusLogger
             namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
         }
 
-        private async void subscrBtn_Click(object sender, EventArgs e)
+        private async void connectBtn_Click(object sender, EventArgs e)
         {
             var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
             messageEventListener.StartListen();
