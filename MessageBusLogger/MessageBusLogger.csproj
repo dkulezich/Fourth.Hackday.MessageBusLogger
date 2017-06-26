@@ -158,6 +158,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageBusReceiver\MessageBusReceiver.csproj">
+      <Project>{435CB716-F6E5-44E1-B17B-D02A2CD17DB8}</Project>
+      <Name>MessageBusReceiver</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
