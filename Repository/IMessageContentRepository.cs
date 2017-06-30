@@ -1,6 +1,6 @@
 ﻿namespace Repository
 {
-    public interface IMessageContentRepository<T> : IRepository<T>
+    public interface IMessageContentRepository<TEntity, in TKey>: IRepository<TEntity, TKey>
     {
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Repository
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity, in TKey>
     {
-        void Insert(T entity);
-        void Delete(T entity);
-        T GetById(int id);
-        IList<T> GetAll();
+        void Insert(TEntity entity);
+        void Delete(TEntity entity);
+        TEntity GetById(TKey id);
+        IList<TEntity> GetAll();
     }
 }

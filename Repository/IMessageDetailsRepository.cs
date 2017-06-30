@@ -1,12 +1,14 @@
-﻿using System;
+﻿using DbCreator.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Repository
 {
-    public interface IMessageDetailsRepository<T> : IRepository<T>
+    public interface IMessageDetailsRepository<TEntity, in TKey> : IRepository<MessageDetails, TKey>
     {
-        T GetByType(string messageType);
-        T GetBySystem(string sourceSystem);
-        T GetByEnvironment(string environment);
-        T GetByDate(DateTime date);
+        IList<MessageDetails> GetByType(string messageType);
+        IList<MessageDetails> GetBySystem(string sourceSystem);
+        IList<MessageDetails> GetByEnvironment(string environment);
+        IList<MessageDetails> GetByDate(DateTime date);
     }
 }
