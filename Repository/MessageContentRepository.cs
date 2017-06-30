@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DbCreator.Model;
 using System.Linq;
+using DbCreator;
 
 namespace Repository
 {
@@ -16,24 +17,24 @@ namespace Repository
 
         public void Insert(MessageContent entity)
         {
-            dbContext.MessageContent.Add(entity);
+            dbContext.MessagesContent.Add(entity);
+            dbContext.SaveChanges();
         }
 
         public void Delete(MessageContent entity)
         {
-            dbContext.MessageContent.Remove(entity);
+            dbContext.MessagesContent.Remove(entity);
+            dbContext.SaveChanges();
         }
 
         public IList<MessageContent> GetAll()
         {
-            return dbContext.MessageContent.ToList();
+            return dbContext.MessagesContent.ToList();
         }
 
         public MessageContent GetById(long id)
         {
-            return dbContext.MessageContent.FirstOrDefault(x => x.Id == id);
-        }
-
-        
+            return dbContext.MessagesContent.Find(id);
+        }        
     }
 }
