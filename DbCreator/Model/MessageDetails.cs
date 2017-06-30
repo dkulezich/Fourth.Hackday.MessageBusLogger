@@ -6,6 +6,11 @@ namespace DbCreator.Model
 {
     public class MessageDetails
     {
+        public MessageDetails()
+        {
+            MessageContents = new HashSet<MessageContent>();
+        }
+
         [Key]
         public long Id { get; set; }
 
