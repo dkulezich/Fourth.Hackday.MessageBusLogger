@@ -6,7 +6,7 @@ namespace DbCreator.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DbCreator.MessageContext context)

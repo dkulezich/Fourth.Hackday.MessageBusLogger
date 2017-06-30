@@ -9,10 +9,9 @@ namespace DbCreator.Model
 
         [Required]
         public string Message { get; set; }
-        
+
         public long MessageDetailsId { get; set; }
 
-        [Required]
         public virtual MessageDetails MessageDetails { get; set; }
     }
 }
