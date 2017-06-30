@@ -32,16 +32,16 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.gridMessages = new System.Windows.Forms.DataGridView();
+            this.txtMessages = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbMessageType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridMessages)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,54 +84,50 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel1.Controls.Add(this.gridMessages);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.textBox2);
+            this.splitContainer1.Panel2.Controls.Add(this.txtMessages);
             this.splitContainer1.Size = new System.Drawing.Size(810, 394);
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 3;
             // 
-            // dataGridView1
+            // gridMessages
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(378, 394);
-            this.dataGridView1.TabIndex = 4;
+            this.gridMessages.AllowUserToAddRows = false;
+            this.gridMessages.AllowUserToDeleteRows = false;
+            this.gridMessages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridMessages.Location = new System.Drawing.Point(0, 0);
+            this.gridMessages.Name = "gridMessages";
+            this.gridMessages.ReadOnly = true;
+            this.gridMessages.Size = new System.Drawing.Size(378, 394);
+            this.gridMessages.TabIndex = 4;
+            this.gridMessages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMessages_RowEnter);
             // 
-            // textBox2
+            // txtMessages
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(0, 0);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(428, 394);
-            this.textBox2.TabIndex = 0;
+            this.txtMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMessages.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMessages.Location = new System.Drawing.Point(0, 0);
+            this.txtMessages.MaxLength = 2147483647;
+            this.txtMessages.Multiline = true;
+            this.txtMessages.Name = "txtMessages";
+            this.txtMessages.Size = new System.Drawing.Size(428, 394);
+            this.txtMessages.TabIndex = 6;
+            this.txtMessages.WordWrap = false;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cmbMessageType);
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(808, 60);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filters";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(96, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(226, 21);
-            this.comboBox1.TabIndex = 0;
             // 
             // label2
             // 
@@ -141,6 +137,14 @@
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Message type:";
+            // 
+            // cmbMessageType
+            // 
+            this.cmbMessageType.FormattingEnabled = true;
+            this.cmbMessageType.Location = new System.Drawing.Point(96, 19);
+            this.cmbMessageType.Name = "cmbMessageType";
+            this.cmbMessageType.Size = new System.Drawing.Size(226, 21);
+            this.cmbMessageType.TabIndex = 0;
             // 
             // MessageBusLogger
             // 
@@ -160,7 +164,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridMessages)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -174,10 +178,10 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.DataGridView gridMessages;
+        private System.Windows.Forms.TextBox txtMessages;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbMessageType;
         private System.Windows.Forms.Label label2;
     }
 }
