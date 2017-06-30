@@ -21,7 +21,7 @@ namespace MessageBusReceiver
         {
             var messageDetails = new MessageDetails();
             messageDetails.Date = DateTime.UtcNow;
-            messageDetails.Environment = environment;
+            messageDetails.Environment = "qai";
             messageDetails.Type = payload.GetType().FullName;
             messageDetails.TrackingId = trackingId;
             messageContent.Message = payload.ToByteString().ToBase64();
