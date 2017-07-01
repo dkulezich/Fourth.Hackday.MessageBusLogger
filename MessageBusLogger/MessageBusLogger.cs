@@ -25,21 +25,21 @@ namespace MessageBusLogger
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
 
-        private IMessageContentRepository<MessageContent, long> repository;
-        private IList<MessageContent> messages;
+        private IMessageRepository repository;
+        private IList<MessageDetails> messages;
         private Assembly assembly;
 
         public MessageBusLogger()
         {
             InitializeComponent();
             LoadMessageTypeComboBox();
-            repository = new MessageContentRepository<MessageContent, long>(new MessageContext());
+            repository = new MessageRepository();
         }
 
         private void connectBtn_Click(object sender, EventArgs e)
         {
-            //var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
-            //messageEventListener.StartListen();
+            var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
+            messageEventListener.StartListen();
 
         }
 
@@ -48,12 +48,12 @@ namespace MessageBusLogger
             var i = e.RowIndex;
             this.txtMessages.Clear();
 
-            var type = messages[i].MessageDetails.Type;
+            var type = messages[i].Type;
             var classType = assembly.GetType(type);
-            var message = ParseMessage(messages[i].Message, classType);
+            var message = ParseMessage(messages[i].MessageContent.Message, classType);
             this.txtMessages.AppendText($"{i + 1} {new string('-', 50)}\n");
             this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\n");
-            this.txtMessages.AppendText($"DateTime: {messages[i].MessageDetails.Date}\n\n");
+            this.txtMessages.AppendText($"DateTime: {messages[i].Date}\n\n");
             this.txtMessages.AppendText($"{message}\n");
         }
 
@@ -100,10 +100,10 @@ namespace MessageBusLogger
             
             gridMessages.DataSource = messages.Select(m => new
             {
-                TrackingId = m.MessageDetails.TrackingId,
-                Source = m.MessageDetails.SourceSystem,
-                DateTime = m.MessageDetails.Date,
-                Type = m.MessageDetails.Type
+                TrackingId = m.TrackingId,
+                Source = m.SourceSystem,
+                DateTime = m.Date,
+                Type = m.Type
             }).ToList();
         }
     }

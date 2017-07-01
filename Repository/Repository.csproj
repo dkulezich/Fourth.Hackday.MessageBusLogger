@@ -49,11 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMessageContentRepository.cs" />
-    <Compile Include="IMessageDetailsRepository.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="MessageContentRepository.cs" />
-    <Compile Include="MessageDetailsRepository.cs" />
+    <Compile Include="IMessageRepository.cs" />
+    <Compile Include="MessageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ namespace MessageBusReceiver
         public string Environment { set { environment = value; } }
 
         MessageContent messageContent = new MessageContent();
-        MessageContentRepository<MessageContent, long> messageContentRepository = new MessageContentRepository<MessageContent, long>(new MessageContext());
+        MessageRepository messageContentRepository = new MessageRepository();
 
 
         public Task<MessageHandlerResult> HandleAsync(T payload, string trackingId)
@@ -25,8 +25,8 @@ namespace MessageBusReceiver
             messageDetails.Type = payload.GetType().FullName;
             messageDetails.TrackingId = trackingId;
             messageContent.Message = payload.ToByteString().ToBase64();
-            messageContent.MessageDetails = messageDetails;
-            messageContentRepository.Insert(messageContent);
+            messageDetails.MessageContent = messageContent;
+            messageContentRepository.Insert(messageDetails);
 
             return Task.FromResult<MessageHandlerResult>(MessageHandlerResult.Success);
         }

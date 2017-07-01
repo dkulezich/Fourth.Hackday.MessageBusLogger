@@ -6,11 +6,6 @@ namespace DbCreator.Model
 {
     public class MessageDetails
     {
-        public MessageDetails()
-        {
-            MessageContents = new HashSet<MessageContent>();
-        }
-
         [Key]
         public long Id { get; set; }
 
@@ -28,6 +23,6 @@ namespace DbCreator.Model
         public string Environment { get; set; }
 
         [Required]
-        public virtual ICollection<MessageContent> MessageContents { get; set; }
+        public virtual MessageContent MessageContent { get; set; }
     }
 }
