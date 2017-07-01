@@ -36,7 +36,7 @@ namespace MessageBusLogger
             repository = new MessageContentRepository<MessageContent, long>(new MessageContext());
         }
 
-        private async void connectBtn_Click(object sender, EventArgs e)
+        private void connectBtn_Click(object sender, EventArgs e)
         {
             //var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
             //messageEventListener.StartListen();
