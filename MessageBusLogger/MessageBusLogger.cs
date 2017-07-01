@@ -41,14 +41,6 @@ namespace MessageBusLogger
             //var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
             //messageEventListener.StartListen();
 
-            messages = repository.GetAll();
-            gridMessages.DataSource = messages.Select(m => new
-            {
-                TrackingId = m.MessageDetails.TrackingId,
-                Source = m.MessageDetails.SourceSystem,
-                DateTime = m.MessageDetails.Date,
-                Type = m.MessageDetails.Type
-            }).ToList();
         }
 
         private void gridMessages_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -88,6 +80,31 @@ namespace MessageBusLogger
             types.Insert(0, ALL_TYPES);
             this.cmbMessageType.DataSource = types;
             this.cmbMessageType.SelectedIndex = 0;
+        }
+
+        private void btnGetMessages_Click(object sender, EventArgs e)
+        {
+            var type = ALL_TYPES;
+
+            if (this.cmbMessageType.SelectedItem != null && this.cmbMessageType.SelectedItem != ALL_TYPES)
+            {
+                type = this.cmbMessageType.SelectedItem.ToString();
+                type = ASSEMBLY_NAME + "." + type;
+                messages = repository.GetByType(type);
+            }
+            else
+            {
+                this.cmbMessageType.SelectedItem = ALL_TYPES;
+                messages = repository.GetAll();
+            }
+            
+            gridMessages.DataSource = messages.Select(m => new
+            {
+                TrackingId = m.MessageDetails.TrackingId,
+                Source = m.MessageDetails.SourceSystem,
+                DateTime = m.MessageDetails.Date,
+                Type = m.MessageDetails.Type
+            }).ToList();
         }
     }
 }

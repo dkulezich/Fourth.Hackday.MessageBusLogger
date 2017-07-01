@@ -35,6 +35,13 @@ namespace Repository
         public MessageContent GetById(long id)
         {
             return dbContext.MessagesContent.Find(id);
-        }        
+        }   
+        
+        public IList<MessageContent> GetByType(string type)
+        {
+            var messages = dbContext.MessagesContent.Where(m => m.MessageDetails.Type.Equals(type)).ToList(); 
+
+            return messages;
+        }     
     }
 }

@@ -37,6 +37,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
+            this.btnGetMessages = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,7 +90,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.txtMessages);
-            this.splitContainer1.Size = new System.Drawing.Size(810, 394);
+            this.splitContainer1.Size = new System.Drawing.Size(810, 365);
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -97,12 +98,18 @@
             // 
             this.gridMessages.AllowUserToAddRows = false;
             this.gridMessages.AllowUserToDeleteRows = false;
+            this.gridMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridMessages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gridMessages.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.gridMessages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridMessages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridMessages.Location = new System.Drawing.Point(0, 0);
+            this.gridMessages.MultiSelect = false;
             this.gridMessages.Name = "gridMessages";
             this.gridMessages.ReadOnly = true;
-            this.gridMessages.Size = new System.Drawing.Size(378, 394);
+            this.gridMessages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridMessages.Size = new System.Drawing.Size(378, 365);
             this.gridMessages.TabIndex = 4;
             this.gridMessages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMessages_RowEnter);
             // 
@@ -114,12 +121,14 @@
             this.txtMessages.MaxLength = 2147483647;
             this.txtMessages.Multiline = true;
             this.txtMessages.Name = "txtMessages";
-            this.txtMessages.Size = new System.Drawing.Size(428, 394);
+            this.txtMessages.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMessages.Size = new System.Drawing.Size(428, 365);
             this.txtMessages.TabIndex = 6;
-            this.txtMessages.WordWrap = false;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmbMessageType);
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
@@ -140,17 +149,30 @@
             // 
             // cmbMessageType
             // 
+            this.cmbMessageType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbMessageType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbMessageType.FormattingEnabled = true;
             this.cmbMessageType.Location = new System.Drawing.Point(96, 19);
             this.cmbMessageType.Name = "cmbMessageType";
             this.cmbMessageType.Size = new System.Drawing.Size(226, 21);
             this.cmbMessageType.TabIndex = 0;
             // 
+            // btnGetMessages
+            // 
+            this.btnGetMessages.Location = new System.Drawing.Point(714, 476);
+            this.btnGetMessages.Name = "btnGetMessages";
+            this.btnGetMessages.Size = new System.Drawing.Size(108, 23);
+            this.btnGetMessages.TabIndex = 5;
+            this.btnGetMessages.Text = "Get messages";
+            this.btnGetMessages.UseVisualStyleBackColor = true;
+            this.btnGetMessages.Click += new System.EventHandler(this.btnGetMessages_Click);
+            // 
             // MessageBusLogger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 511);
+            this.Controls.Add(this.btnGetMessages);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
@@ -183,6 +205,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbMessageType;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnGetMessages;
     }
 }
 
