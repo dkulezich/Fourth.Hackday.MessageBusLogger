@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DbCreator.Model;
 using System.Linq;
 using DbCreator;
+using System.Data.Entity;
 
 namespace Repository
 {
@@ -32,7 +33,7 @@ namespace Repository
 
             using (var dbContext = new MessageContext())
             {
-                messages = dbContext.MessagesDetails.ToList();
+                messages = dbContext.MessagesDetails.Include(m => m.MessageContent).ToList();
             }
 
             return messages;
@@ -43,7 +44,7 @@ namespace Repository
             var messageContent = new MessageDetails();
             using (var dbContext = new MessageContext())
             {
-                messageContent = dbContext.MessagesDetails.Find(id);
+                messageContent = dbContext.MessagesDetails.Include(m => m.MessageContent).FirstOrDefault(m => m.Id == id);
             }
 
             return messageContent;
@@ -55,7 +56,7 @@ namespace Repository
 
             using (var dbContext = new MessageContext())
             {
-                messages = dbContext.MessagesDetails.Where(m => m.Type.Equals(type)).ToList();
+                messages = dbContext.MessagesDetails.Where(m => m.Type.Equals(type)).Include(m => m.MessageContent).ToList();
             }
 
             return messages;
