@@ -1,5 +1,7 @@
 ﻿using DbCreator;
 using DbCreator.Model;
+using Fourth.Orchestration.Messaging.Azure;
+using Fourth.Orchestration.Storage.Azure;
 using Google.ProtocolBuffers;
 using MessageBusReceiver;
 using Microsoft.Azure;
@@ -105,6 +107,16 @@ namespace MessageBusLogger
                 DateTime = m.Date,
                 Type = m.Type
             }).ToList();
+        }
+
+        private void BtnResendMessage_Click(object sender, EventArgs e)
+        {
+            var messageStore = new AzureMessageStore();
+            var messageFactory = new AzureMessagingFactory(messageStore);
+            var messageBus = messageFactory.CreateMessageBus();
+
+            //Events.ProductLocationsModified productLocationsModified = Events.ProductLocationsModified.ParseFrom(ByteString.FromBase64(messageBody));
+            //messageBus.Publish(ByteString.FromBase64(messages[0].MessageContent.Message));
         }
     }
 }

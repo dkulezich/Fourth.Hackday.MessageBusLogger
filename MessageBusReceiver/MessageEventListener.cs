@@ -55,14 +55,5 @@ namespace MessageBusReceiver
             messageListener.StopListener();
             messageListener.Dispose();
         }
-
-        public IMessage ParseMessage(string messageBase64, Type messageType)
-        {
-            MethodInfo parseMethod = messageType.GetMethod("ParseFrom", new[] { typeof(ByteString) });
-            var messageBody = ByteString.FromBase64(messageBase64);
-            var message = parseMethod.Invoke(null, new object[] { messageBody }) as IMessage;
-
-            return message;
-        }
     }
 }

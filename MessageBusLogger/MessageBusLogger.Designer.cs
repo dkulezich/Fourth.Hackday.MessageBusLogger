@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.btnGetMessages = new System.Windows.Forms.Button();
+            this.BtnResendMessage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -130,6 +131,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnGetMessages);
             this.groupBox1.Controls.Add(this.cmbMessageType);
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
             this.groupBox1.Name = "groupBox1";
@@ -159,7 +161,8 @@
             // 
             // btnGetMessages
             // 
-            this.btnGetMessages.Location = new System.Drawing.Point(714, 476);
+            this.btnGetMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGetMessages.Location = new System.Drawing.Point(694, 31);
             this.btnGetMessages.Name = "btnGetMessages";
             this.btnGetMessages.Size = new System.Drawing.Size(108, 23);
             this.btnGetMessages.TabIndex = 5;
@@ -167,12 +170,22 @@
             this.btnGetMessages.UseVisualStyleBackColor = true;
             this.btnGetMessages.Click += new System.EventHandler(this.btnGetMessages_Click);
             // 
+            // BtnResendMessage
+            // 
+            this.BtnResendMessage.Location = new System.Drawing.Point(707, 476);
+            this.BtnResendMessage.Name = "BtnResendMessage";
+            this.BtnResendMessage.Size = new System.Drawing.Size(115, 23);
+            this.BtnResendMessage.TabIndex = 6;
+            this.BtnResendMessage.Text = "Resend message";
+            this.BtnResendMessage.UseVisualStyleBackColor = true;
+            this.BtnResendMessage.Click += new System.EventHandler(this.BtnResendMessage_Click);
+            // 
             // MessageBusLogger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 511);
-            this.Controls.Add(this.btnGetMessages);
+            this.Controls.Add(this.BtnResendMessage);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
@@ -206,6 +219,7 @@
         private System.Windows.Forms.ComboBox cmbMessageType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnGetMessages;
+        private System.Windows.Forms.Button BtnResendMessage;
     }
 }
 
