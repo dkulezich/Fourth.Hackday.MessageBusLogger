@@ -86,15 +86,15 @@ namespace Repository
             return messages;
         }
 
-        //public IList<MessageDetails> GetAllSourceSystems()
-        //{
-        //    var messages = new List<MessageDetails>();
+        public IList<MessageDetails> GetAllSourceSystems()
+        {
+            var messages = new List<MessageDetails>();
 
-        //    using (var dbContext = new MessageContext())
-        //    {
-        //        messages = dbContext.MessagesDetails.GroupBy(x => x.SourceSystem).ToList();
-        //    }
-        //    return messages;
-        //}
+            //    using (var dbContext = new MessageContext())
+            //    {
+            //        messages = dbContext.MessagesDetails.GroupBy(x => x.SourceSystem).ToList();
+            //    }
+            return messages;
+        }
     }
 }
