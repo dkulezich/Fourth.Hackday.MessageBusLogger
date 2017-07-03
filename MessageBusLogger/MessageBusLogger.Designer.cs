@@ -35,12 +35,12 @@
             this.gridMessages = new System.Windows.Forms.DataGridView();
             this.txtMessages = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.sourceSystem_text = new System.Windows.Forms.TextBox();
+            this.sourceSystem_lbl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnGetMessages = new System.Windows.Forms.Button();
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.BtnResendMessage = new System.Windows.Forms.Button();
-            this.sourceSystem_lbl = new System.Windows.Forms.Label();
-            this.sourceSystem_text = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -144,6 +144,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filters";
             // 
+            // sourceSystem_text
+            // 
+            this.sourceSystem_text.Location = new System.Drawing.Point(390, 19);
+            this.sourceSystem_text.Name = "sourceSystem_text";
+            this.sourceSystem_text.Size = new System.Drawing.Size(100, 20);
+            this.sourceSystem_text.TabIndex = 7;
+            // 
+            // sourceSystem_lbl
+            // 
+            this.sourceSystem_lbl.AutoSize = true;
+            this.sourceSystem_lbl.Location = new System.Drawing.Point(342, 22);
+            this.sourceSystem_lbl.Name = "sourceSystem_lbl";
+            this.sourceSystem_lbl.Size = new System.Drawing.Size(41, 13);
+            this.sourceSystem_lbl.TabIndex = 6;
+            this.sourceSystem_lbl.Text = "System";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -176,6 +192,7 @@
             // 
             // BtnResendMessage
             // 
+            this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnResendMessage.Location = new System.Drawing.Point(707, 476);
             this.BtnResendMessage.Name = "BtnResendMessage";
             this.BtnResendMessage.Size = new System.Drawing.Size(115, 23);
@@ -183,22 +200,6 @@
             this.BtnResendMessage.Text = "Resend message";
             this.BtnResendMessage.UseVisualStyleBackColor = true;
             this.BtnResendMessage.Click += new System.EventHandler(this.BtnResendMessage_Click);
-            // 
-            // sourceSystem_lbl
-            // 
-            this.sourceSystem_lbl.AutoSize = true;
-            this.sourceSystem_lbl.Location = new System.Drawing.Point(342, 22);
-            this.sourceSystem_lbl.Name = "sourceSystem_lbl";
-            this.sourceSystem_lbl.Size = new System.Drawing.Size(41, 13);
-            this.sourceSystem_lbl.TabIndex = 6;
-            this.sourceSystem_lbl.Text = "System";
-            // 
-            // sourceSystem_text
-            // 
-            this.sourceSystem_text.Location = new System.Drawing.Point(390, 19);
-            this.sourceSystem_text.Name = "sourceSystem_text";
-            this.sourceSystem_text.Size = new System.Drawing.Size(100, 20);
-            this.sourceSystem_text.TabIndex = 7;
             // 
             // MessageBusLogger
             // 

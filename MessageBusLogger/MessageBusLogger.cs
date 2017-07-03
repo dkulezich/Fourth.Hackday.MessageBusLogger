@@ -29,6 +29,7 @@ namespace MessageBusLogger
 
         private IMessageRepository repository;
         private IList<MessageDetails> messages;
+        private IMessage selectedMessage;
         private Assembly assembly;
 
         public MessageBusLogger()
@@ -53,22 +54,11 @@ namespace MessageBusLogger
             var type = messages[i].Type;
             var classType = assembly.GetType(type);
             var message = ParseMessage(messages[i].MessageContent.Message, classType);
+            this.selectedMessage = message;
             this.txtMessages.AppendText($"{i + 1} {new string('-', 50)}\n");
             this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\n");
             this.txtMessages.AppendText($"DateTime: {messages[i].Date}\n\n");
             this.txtMessages.AppendText($"{message}\n");
-        }
-
-        private static IMessage ParseMessage(string messageBase64, Type messageType)
-        {
-            if (messageBase64 == null) throw new ArgumentNullException("messageBase64");
-            // Verify if message type implements IMessage
-            if (!typeof(IMessage).IsAssignableFrom(messageType)) throw new ArgumentException("messageType should implement IMessage interface");
-
-            MethodInfo parseMethod = messageType.GetMethod("ParseFrom", new[] { typeof(ByteString) });
-            var messageBody = ByteString.FromBase64(messageBase64);
-            var message = parseMethod.Invoke(null, new object[] { messageBody }) as IMessage;
-            return message;
         }
 
 
@@ -90,7 +80,7 @@ namespace MessageBusLogger
             string source;
             DateTime date = DateTime.UtcNow;
 
-            if (this.cmbMessageType.SelectedItem != null && this.cmbMessageType.SelectedItem != ALL_TYPES)
+            if (this.cmbMessageType.SelectedItem != null && this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
                 //&& this.sourceSystem_text.Text!=null)
             {
                 type = this.cmbMessageType.SelectedItem.ToString();
@@ -116,13 +106,29 @@ namespace MessageBusLogger
 
         private void BtnResendMessage_Click(object sender, EventArgs e)
         {
+            //var i = e.RowIndex;
             var messageStore = new AzureMessageStore();
             var messageFactory = new AzureMessagingFactory(messageStore);
             var messageBus = messageFactory.CreateMessageBus();
-
-            //Events.ProductLocationsModified productLocationsModified = Events.ProductLocationsModified.ParseFrom(ByteString.FromBase64(messageBody));
-            //messageBus.Publish(ByteString.FromBase64(messages[0].MessageContent.Message));
+            
+            //var type = messages[0].Type;
+            //var classType = assembly.GetType(type);
+            //var message = ParseMessage(messages[0].MessageContent.Message, classType);
+            
+            messageBus.Publish(this.selectedMessage);
         }
         
+
+        private static IMessage ParseMessage(string messageBase64, Type messageType)
+        {
+            if (messageBase64 == null) throw new ArgumentNullException("messageBase64");
+            // Verify if message type implements IMessage
+            if (!typeof(IMessage).IsAssignableFrom(messageType)) throw new ArgumentException("messageType should implement IMessage interface");
+
+            MethodInfo parseMethod = messageType.GetMethod("ParseFrom", new[] { typeof(ByteString) });
+            var messageBody = ByteString.FromBase64(messageBase64);
+            var message = parseMethod.Invoke(null, new object[] { messageBody }) as IMessage;
+            return message;
+        }
     }
 }
