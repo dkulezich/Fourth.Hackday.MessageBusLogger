@@ -36,9 +36,11 @@
             this.txtMessages = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.btnGetMessages = new System.Windows.Forms.Button();
+            this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.BtnResendMessage = new System.Windows.Forms.Button();
+            this.sourceSystem_lbl = new System.Windows.Forms.Label();
+            this.sourceSystem_text = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -130,6 +132,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.sourceSystem_text);
+            this.groupBox1.Controls.Add(this.sourceSystem_lbl);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnGetMessages);
             this.groupBox1.Controls.Add(this.cmbMessageType);
@@ -149,16 +153,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Message type:";
             // 
-            // cmbMessageType
-            // 
-            this.cmbMessageType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbMessageType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbMessageType.FormattingEnabled = true;
-            this.cmbMessageType.Location = new System.Drawing.Point(96, 19);
-            this.cmbMessageType.Name = "cmbMessageType";
-            this.cmbMessageType.Size = new System.Drawing.Size(226, 21);
-            this.cmbMessageType.TabIndex = 0;
-            // 
             // btnGetMessages
             // 
             this.btnGetMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -170,6 +164,16 @@
             this.btnGetMessages.UseVisualStyleBackColor = true;
             this.btnGetMessages.Click += new System.EventHandler(this.btnGetMessages_Click);
             // 
+            // cmbMessageType
+            // 
+            this.cmbMessageType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbMessageType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbMessageType.FormattingEnabled = true;
+            this.cmbMessageType.Location = new System.Drawing.Point(96, 19);
+            this.cmbMessageType.Name = "cmbMessageType";
+            this.cmbMessageType.Size = new System.Drawing.Size(226, 21);
+            this.cmbMessageType.TabIndex = 0;
+            // 
             // BtnResendMessage
             // 
             this.BtnResendMessage.Location = new System.Drawing.Point(707, 476);
@@ -179,6 +183,22 @@
             this.BtnResendMessage.Text = "Resend message";
             this.BtnResendMessage.UseVisualStyleBackColor = true;
             this.BtnResendMessage.Click += new System.EventHandler(this.BtnResendMessage_Click);
+            // 
+            // sourceSystem_lbl
+            // 
+            this.sourceSystem_lbl.AutoSize = true;
+            this.sourceSystem_lbl.Location = new System.Drawing.Point(342, 22);
+            this.sourceSystem_lbl.Name = "sourceSystem_lbl";
+            this.sourceSystem_lbl.Size = new System.Drawing.Size(41, 13);
+            this.sourceSystem_lbl.TabIndex = 6;
+            this.sourceSystem_lbl.Text = "System";
+            // 
+            // sourceSystem_text
+            // 
+            this.sourceSystem_text.Location = new System.Drawing.Point(390, 19);
+            this.sourceSystem_text.Name = "sourceSystem_text";
+            this.sourceSystem_text.Size = new System.Drawing.Size(100, 20);
+            this.sourceSystem_text.TabIndex = 7;
             // 
             // MessageBusLogger
             // 
@@ -220,6 +240,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnGetMessages;
         private System.Windows.Forms.Button BtnResendMessage;
+        private System.Windows.Forms.TextBox sourceSystem_text;
+        private System.Windows.Forms.Label sourceSystem_lbl;
     }
 }
 

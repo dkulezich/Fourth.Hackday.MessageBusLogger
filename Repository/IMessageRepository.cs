@@ -1,4 +1,5 @@
 ﻿using DbCreator.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Repository
@@ -10,5 +11,6 @@ namespace Repository
         MessageDetails GetById(long id);
         IList<MessageDetails> GetAll();
         IList<MessageDetails> GetByType(string type);
+        IList<MessageDetails> FindBy(DateTime date, string type, string sourceSystem);
     }
 }
