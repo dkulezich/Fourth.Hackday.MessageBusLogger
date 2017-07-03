@@ -68,15 +68,33 @@ namespace Repository
 
             using (var dbContext = new MessageContext())
             {
-                messages = dbContext.MessagesDetails.Where(m => 
-                    m.SourceSystem.Equals(sourceSystem) && 
-                    m.Type.Equals(type) &&
-                    m.Date > date)
-                    .OrderByDescending(x => x.Date)
-                    .Include(m => m.MessageContent).ToList();
+                var query = dbContext.MessagesDetails;
+                if (!string.IsNullOrEmpty(type))
+                {
+                    query.Where(m => m.Type.Equals(type));
+                        
+                }
+                if (!string.IsNullOrEmpty(sourceSystem))
+                {
+                    query.Where(m => m.SourceSystem.Equals(sourceSystem));
+                }
+
+                messages = query.OrderByDescending(x => x.Date)
+                        .Include(m => m.MessageContent).ToList();
             }
 
             return messages;
-        }        
+        }
+
+        //public IList<MessageDetails> GetAllSourceSystems()
+        //{
+        //    var messages = new List<MessageDetails>();
+
+        //    using (var dbContext = new MessageContext())
+        //    {
+        //        messages = dbContext.MessagesDetails.GroupBy(x => x.SourceSystem).ToList();
+        //    }
+        //    return messages;
+        //}
     }
 }

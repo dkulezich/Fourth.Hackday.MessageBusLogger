@@ -84,20 +84,20 @@ namespace MessageBusLogger
             this.cmbMessageType.SelectedIndex = 0;
         }
 
+        private void SourceSystemComboBox()
+        {
+            
+        }
+
         private void btnGetMessages_Click(object sender, EventArgs e)
         {
             var type = ALL_TYPES;
-            string source;
-            DateTime date = DateTime.UtcNow;
 
             if (this.cmbMessageType.SelectedItem != null && this.cmbMessageType.SelectedItem != ALL_TYPES)
-                //&& this.sourceSystem_text.Text!=null)
             {
                 type = this.cmbMessageType.SelectedItem.ToString();
                 type = ASSEMBLY_NAME + "." + type;
-                source = this.sourceSystem_text.Text;
                 messages = repository.GetByType(type);
-                //messages = repository.FindBy(date, type, source);
             }
             else
             {
