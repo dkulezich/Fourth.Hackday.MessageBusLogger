@@ -28,6 +28,7 @@ namespace MessageBusLogger
         private const string SUBSCRIPTION_NAME = "MessageBusLogger";
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
+        private const string ALL_SYSTEMS = "All systems";
 
         private IMessageRepository repository;
         private IList<MessageDetails> messages;
@@ -40,6 +41,7 @@ namespace MessageBusLogger
             InitializeComponent();
             LoadMessageTypeComboBox();
             repository = new MessageRepository();
+            LoadSourceSystemComboBox();
         }
 
         private void connectBtn_Click(object sender, EventArgs e)
@@ -90,9 +92,12 @@ namespace MessageBusLogger
             this.cmbMessageType.SelectedIndex = 0;
         }
 
-        private void SourceSystemComboBox()
+        private void LoadSourceSystemComboBox()
         {
-            
+            var sourceSystemsList = repository.GetAllSourceSystems();
+            sourceSystemsList.Insert(0, ALL_SYSTEMS);
+            cmbSourceSystem.DataSource = sourceSystemsList;
+            cmbSourceSystem.SelectedIndex = 0;
         }
 
         private void btnGetMessages_Click(object sender, EventArgs e)
