@@ -18,12 +18,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Xml;
 
 namespace MessageBusLogger
 {
     public partial class MessageBusLogger : Form
     {
-        private const string SUBSCRIPTION_NAME = "ilian";
+        private const string SUBSCRIPTION_NAME = "MessageBusLogger";
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
 
@@ -31,6 +33,7 @@ namespace MessageBusLogger
         private IList<MessageDetails> messages;
         private IMessage selectedMessage;
         private Assembly assembly;
+        private string connectionStringCurrentConnected;
 
         public MessageBusLogger()
         {
@@ -41,7 +44,20 @@ namespace MessageBusLogger
 
         private void connectBtn_Click(object sender, EventArgs e)
         {
-            var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME);
+            connectionStringCurrentConnected = this.txt_ConnectionStringListener.Text;
+
+            if (!string.IsNullOrEmpty(connectionStringCurrentConnected))
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+                xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionStringCurrentConnected;
+                //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
+                xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                ConfigurationManager.RefreshSection("orchestrationAzure");
+            }
+            
+            var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
             messageEventListener.StartListen();
 
         }
@@ -100,21 +116,35 @@ namespace MessageBusLogger
                 TrackingId = m.TrackingId,
                 Source = m.SourceSystem,
                 DateTime = m.Date,
-                Type = m.Type
+                Type = m.Type,
+                Environment = m.Environment
             }).ToList();
         }
 
         private void BtnResendMessage_Click(object sender, EventArgs e)
         {
-            //var i = e.RowIndex;
+            var connectionString = this.txt_ResendString.Text;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                connectionString = connectionStringCurrentConnected;
+            }
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+            xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionString;
+            //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
+            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            ConfigurationManager.RefreshSection("orchestrationAzure");
+
             var messageStore = new AzureMessageStore();
             var messageFactory = new AzureMessagingFactory(messageStore);
             var messageBus = messageFactory.CreateMessageBus();
-            
+
             //var type = messages[0].Type;
             //var classType = assembly.GetType(type);
             //var message = ParseMessage(messages[0].MessageContent.Message, classType);
-            
+
             messageBus.Publish(this.selectedMessage);
         }
         

@@ -12,11 +12,13 @@ namespace MessageBusReceiver
     public class MessageHandler<T> : IMessageHandler<T> where T : IMessage
     {
         private string environment;
-        public string Environment { set { environment = value; } }
-
         MessageContent messageContent = new MessageContent();
         MessageRepository messageContentRepository = new MessageRepository();
 
+        public MessageHandler(string environment)
+        {
+            this.environment = environment;
+        }
 
         public Task<MessageHandlerResult> HandleAsync(T payload, string trackingId)
         {
@@ -25,7 +27,7 @@ namespace MessageBusReceiver
 
             var messageDetails = new MessageDetails();
             messageDetails.Date = DateTime.UtcNow;
-            messageDetails.Environment = "qai";
+            messageDetails.Environment = this.environment;
             messageDetails.Type = payload.GetType().FullName;
             messageDetails.TrackingId = trackingId;
             messageDetails.SourceSystem = jToken.ToString();

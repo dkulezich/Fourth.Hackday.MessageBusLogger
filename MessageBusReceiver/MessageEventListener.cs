@@ -17,12 +17,14 @@ namespace MessageBusReceiver
         private IMessagingFactory messageFactory;
         private IMessageListener messageListener;
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
+        private string connectionString;
 
-        public MessageEventListener(string subscription)
+        public MessageEventListener(string subscription, string connectionString)
         {
             messageStore = new AzureMessageStore();
             messageFactory = new AzureMessagingFactory(messageStore);
             messageListener = messageFactory.CreateMessageListener(subscription);
+            this.connectionString = connectionString;
         }
 
         public void StartListen()
@@ -37,11 +39,12 @@ namespace MessageBusReceiver
 
             for (int i = 0; i < types.Count; i++)
             {
+                //TODO: remove this "if" to subscribe every topic
                 if(i == 103 || i == 121)
                 {
                     Type classType = assembly.GetType(types[i]);
                     var type = typeof(MessageHandler<>).MakeGenericType(new[] { classType });
-                    var handler = Activator.CreateInstance(type) as IMessageHandler;
+                    var handler = Activator.CreateInstance(type, this.connectionString) as IMessageHandler;
                     handlers.Add(handler);
                 }
             }

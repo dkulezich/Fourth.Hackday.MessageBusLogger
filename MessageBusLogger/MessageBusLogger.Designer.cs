@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.subscrBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_ConnectionStringListener = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridMessages = new System.Windows.Forms.DataGridView();
@@ -41,6 +41,7 @@
             this.btnGetMessages = new System.Windows.Forms.Button();
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.BtnResendMessage = new System.Windows.Forms.Button();
+            this.txt_ResendString = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,13 +61,13 @@
             this.subscrBtn.UseVisualStyleBackColor = true;
             this.subscrBtn.Click += new System.EventHandler(this.connectBtn_Click);
             // 
-            // textBox1
+            // txt_ConnectionStringListener
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBox1.Location = new System.Drawing.Point(109, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(583, 20);
-            this.textBox1.TabIndex = 1;
+            this.txt_ConnectionStringListener.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txt_ConnectionStringListener.Location = new System.Drawing.Point(109, 12);
+            this.txt_ConnectionStringListener.Name = "txt_ConnectionStringListener";
+            this.txt_ConnectionStringListener.Size = new System.Drawing.Size(583, 20);
+            this.txt_ConnectionStringListener.TabIndex = 1;
             // 
             // label1
             // 
@@ -148,7 +149,7 @@
             // 
             this.cmbSourceSystem.FormattingEnabled = true;
             this.cmbSourceSystem.Location = new System.Drawing.Point(388, 19);
-            this.cmbSourceSystem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbSourceSystem.Margin = new System.Windows.Forms.Padding(2);
             this.cmbSourceSystem.Name = "cmbSourceSystem";
             this.cmbSourceSystem.Size = new System.Drawing.Size(92, 21);
             this.cmbSourceSystem.TabIndex = 7;
@@ -194,9 +195,9 @@
             // 
             // BtnResendMessage
             // 
-            this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnResendMessage.Location = new System.Drawing.Point(708, 477);
-            this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnResendMessage.Location = new System.Drawing.Point(11, 477);
+            this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2);
             this.BtnResendMessage.Name = "BtnResendMessage";
             this.BtnResendMessage.Size = new System.Drawing.Size(115, 23);
             this.BtnResendMessage.TabIndex = 6;
@@ -204,16 +205,26 @@
             this.BtnResendMessage.UseVisualStyleBackColor = true;
             this.BtnResendMessage.Click += new System.EventHandler(this.BtnResendMessage_Click);
             // 
+            // txt_ResendString
+            // 
+            this.txt_ResendString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_ResendString.Location = new System.Drawing.Point(149, 479);
+            this.txt_ResendString.Name = "txt_ResendString";
+            this.txt_ResendString.Size = new System.Drawing.Size(671, 20);
+            this.txt_ResendString.TabIndex = 7;
+            // 
             // MessageBusLogger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 511);
+            this.Controls.Add(this.txt_ResendString);
             this.Controls.Add(this.BtnResendMessage);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_ConnectionStringListener);
             this.Controls.Add(this.subscrBtn);
             this.MinimumSize = new System.Drawing.Size(849, 548);
             this.Name = "MessageBusLogger";
@@ -234,7 +245,7 @@
         #endregion
 
         private System.Windows.Forms.Button subscrBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_ConnectionStringListener;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView gridMessages;
@@ -246,6 +257,7 @@
         private System.Windows.Forms.Button BtnResendMessage;
         private System.Windows.Forms.Label sourceSystem_lbl;
         private System.Windows.Forms.ComboBox cmbSourceSystem;
+        private System.Windows.Forms.TextBox txt_ResendString;
     }
 }
 
