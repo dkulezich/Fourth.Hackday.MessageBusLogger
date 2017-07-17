@@ -71,10 +71,10 @@ namespace MessageBusLogger
             var classType = assembly.GetType(type);
             var message = ParseMessage(messages[i].MessageContent.Message, classType);
             this.selectedMessage = message;
-            this.txtMessages.AppendText($"{i + 1} {new string('-', 50)}\n");
-            this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\n");
-            this.txtMessages.AppendText($"DateTime: {messages[i].Date}\n\n");
-            this.txtMessages.AppendText($"{message}\n");
+            this.txtMessages.AppendText($"{i + 1} {new string('-', 50)}\r\n");
+            this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\r\n");
+            this.txtMessages.AppendText($"DateTime: {messages[i].Date}\r\n");
+            this.txtMessages.AppendText($"{message.ToString()}\r\n");
         }
 
 
@@ -159,6 +159,15 @@ namespace MessageBusLogger
             var messageBody = ByteString.FromBase64(messageBase64);
             var message = parseMethod.Invoke(null, new object[] { messageBody }) as IMessage;
             return message;
+        }
+
+        private void txtMessages_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Modifiers == Keys.Control && e.KeyCode == Keys.F)
+            {
+                var form = new Find();
+                form.Show();
+            }
         }
     }
 }

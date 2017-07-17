@@ -33,7 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridMessages = new System.Windows.Forms.DataGridView();
-            this.txtMessages = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbSourceSystem = new System.Windows.Forms.ComboBox();
             this.sourceSystem_lbl = new System.Windows.Forms.Label();
@@ -42,6 +41,7 @@
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.BtnResendMessage = new System.Windows.Forms.Button();
             this.txt_ResendString = new System.Windows.Forms.TextBox();
+            this.txtMessages = new RichTextBoxFind.RichTextBoxEnh();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -116,18 +116,6 @@
             this.gridMessages.Size = new System.Drawing.Size(378, 365);
             this.gridMessages.TabIndex = 4;
             this.gridMessages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMessages_RowEnter);
-            // 
-            // txtMessages
-            // 
-            this.txtMessages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtMessages.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMessages.Location = new System.Drawing.Point(0, 0);
-            this.txtMessages.MaxLength = 2147483647;
-            this.txtMessages.Multiline = true;
-            this.txtMessages.Name = "txtMessages";
-            this.txtMessages.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMessages.Size = new System.Drawing.Size(428, 365);
-            this.txtMessages.TabIndex = 6;
             // 
             // groupBox1
             // 
@@ -214,6 +202,16 @@
             this.txt_ResendString.Size = new System.Drawing.Size(671, 20);
             this.txt_ResendString.TabIndex = 7;
             // 
+            // txtMessages
+            // 
+            this.txtMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMessages.Location = new System.Drawing.Point(0, 0);
+            this.txtMessages.Name = "txtMessages";
+            this.txtMessages.Size = new System.Drawing.Size(428, 365);
+            this.txtMessages.TabIndex = 0;
+            this.txtMessages.Text = "";
+            this.txtMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMessages_KeyUp);
+            // 
             // MessageBusLogger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,7 +229,6 @@
             this.Text = "Message Bus Logger";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridMessages)).EndInit();
@@ -249,7 +246,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView gridMessages;
-        private System.Windows.Forms.TextBox txtMessages;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbMessageType;
         private System.Windows.Forms.Label label2;
@@ -258,6 +254,7 @@
         private System.Windows.Forms.Label sourceSystem_lbl;
         private System.Windows.Forms.ComboBox cmbSourceSystem;
         private System.Windows.Forms.TextBox txt_ResendString;
+        private RichTextBoxFind.RichTextBoxEnh txtMessages;
     }
 }
 
