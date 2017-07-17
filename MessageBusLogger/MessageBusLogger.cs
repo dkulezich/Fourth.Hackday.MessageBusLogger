@@ -30,6 +30,7 @@ namespace MessageBusLogger
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
         private const string ALL_SYSTEMS = "All systems";
+        
 
         private IMessageRepository repository;
         private IList<MessageDetails> messages;
@@ -41,6 +42,8 @@ namespace MessageBusLogger
         {
             InitializeComponent();
             LoadMessageTypeComboBox();
+            LoadMaxCountValuesComboBox();
+            SetDateTimePickerDefaultValues();
             repository = new MessageRepository();
             LoadSourceSystemComboBox();
         }
@@ -104,22 +107,39 @@ namespace MessageBusLogger
             cmbSourceSystem.SelectedIndex = 0;
         }
 
+        private void LoadMaxCountValuesComboBox()
+        {
+            cmbMaxCount.SelectedIndex = 0;
+        }
+
+        private void SetDateTimePickerDefaultValues()
+        {
+            pickerStartDate.Value = DateTime.Today.AddMonths(-1);
+            pickerEndDate.Value = DateTime.Today;
+        }
+
         private void btnGetMessages_Click(object sender, EventArgs e)
         {
-            var type = ALL_TYPES;
+            var type = string.Empty;
+            var system = string.Empty;
+            var maxCount = Int32.Parse(cmbMaxCount.SelectedItem.ToString());
+            var startDate = pickerStartDate.Value;
+            var endDate = pickerEndDate.Value;
 
-            if (this.cmbMessageType.SelectedItem != null && this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
+            if (this.cmbMessageType.SelectedItem != null &&
+                this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
             {
                 type = this.cmbMessageType.SelectedItem.ToString();
-                type = ASSEMBLY_NAME + "." + type;
-                messages = repository.GetByType(type);
+                type = ASSEMBLY_NAME + "." + type;                
             }
-            else
+
+            if (cmbSourceSystem.ToString() != ALL_SYSTEMS)
             {
-                this.cmbMessageType.SelectedItem = ALL_TYPES;
-                messages = repository.GetAll();
+                system = cmbSourceSystem.SelectedItem.ToString();                
             }
             
+            messages = repository.FindBy(maxCount, type, system, startDate, endDate);
+
             gridMessages.DataSource = messages.Select(m => new
             {
                 TrackingId = m.TrackingId,

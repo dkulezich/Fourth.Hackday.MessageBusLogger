@@ -73,25 +73,25 @@ namespace Repository
 
                 if (startDate.HasValue)
                 {
-                    query = query.Where(c => c.Date >= startDate.Value).Take(maxCount);
+                    query = query.Where(c => c.Date >= startDate.Value);
                 }
 
                 if (startDate.HasValue)
                 {
-                    query = query.Where(c => c.Date <= endDate.Value).Take(maxCount);
+                    query = query.Where(c => c.Date <= endDate.Value);
                 }
 
                 if (!string.IsNullOrEmpty(type))
                 {
-                    query.Where(m => m.Type.Equals(type)).Take(maxCount);
+                    query = query.Where(m => m.Type.Equals(type));
                 }
 
                 if (!string.IsNullOrEmpty(sourceSystem))
                 {
-                    query.Where(m => m.SourceSystem.Equals(sourceSystem)).Take(maxCount);
+                    query = query.Where(m => m.SourceSystem.Equals(sourceSystem));
                 }
                 
-                messages = query.OrderByDescending(x => x.Date)
+                messages = query.Take(maxCount).OrderByDescending(x => x.Date)
                         .Include(m => m.MessageContent).ToList();
             }
 
