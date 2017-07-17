@@ -86,6 +86,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Enabled = false;
             this.splitContainer1.Location = new System.Drawing.Point(12, 105);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -134,7 +135,6 @@
             this.txtMessages.TabIndex = 0;
             this.txtMessages.Text = "";
             this.txtMessages.WordWrap = false;
-            this.txtMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMessages_KeyUp);
             // 
             // groupBox1
             // 
@@ -145,6 +145,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnGetMessages);
             this.groupBox1.Controls.Add(this.cmbMessageType);
+            this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(808, 60);
@@ -203,6 +204,7 @@
             // BtnResendMessage
             // 
             this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnResendMessage.Enabled = false;
             this.BtnResendMessage.Location = new System.Drawing.Point(11, 476);
             this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2);
             this.BtnResendMessage.Name = "BtnResendMessage";
@@ -216,6 +218,7 @@
             // 
             this.txt_ResendString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_ResendString.Enabled = false;
             this.txt_ResendString.Location = new System.Drawing.Point(149, 479);
             this.txt_ResendString.Name = "txt_ResendString";
             this.txt_ResendString.Size = new System.Drawing.Size(671, 20);
@@ -229,6 +232,7 @@
             this.txt_Find.Name = "txt_Find";
             this.txt_Find.Size = new System.Drawing.Size(285, 20);
             this.txt_Find.TabIndex = 1;
+            this.txt_Find.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_Find_KeyUp);
             // 
             // btn_Find
             // 
@@ -239,6 +243,7 @@
             this.btn_Find.TabIndex = 2;
             this.btn_Find.Text = "Find";
             this.btn_Find.UseVisualStyleBackColor = true;
+            this.btn_Find.Click += new System.EventHandler(this.btn_Find_Click);
             // 
             // MessageBusLogger
             // 
