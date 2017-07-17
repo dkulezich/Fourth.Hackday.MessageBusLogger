@@ -25,7 +25,8 @@ namespace MessageBusLogger
 {
     public partial class MessageBusLogger : Form
     {
-        private const string SUBSCRIPTION_NAME = "MessageBusLogger";
+        //private const string SUBSCRIPTION_NAME = "MessageBusLogger";
+        private const string SUBSCRIPTION_NAME = "ilian";
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
         private const string ALL_SYSTEMS = "All systems";
@@ -52,26 +53,18 @@ namespace MessageBusLogger
             {
                 try
                 {
-                    var xmlDoc = new XmlDocument();
-                    xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-
-                    xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionStringCurrentConnected;
-                    //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
-                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-                    ConfigurationManager.RefreshSection("orchestrationAzure");
-
+                    ChangeAzureMessageBusConnectionString(connectionStringCurrentConnected);
+                    var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
                     var task = Task.Run(() =>
                     {
-                        var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
-                        messageEventListener.StartListen();
+                        messageEventListener.StartListen();                        
                     });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }            
-
+            }
         }
 
         private void gridMessages_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -145,14 +138,7 @@ namespace MessageBusLogger
                 connectionString = connectionStringCurrentConnected;
             }
 
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-
-            xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionString;
-            //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
-            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-            ConfigurationManager.RefreshSection("orchestrationAzure");
-
+            ChangeAzureMessageBusConnectionString(connectionString);
             var messageStore = new AzureMessageStore();
             var messageFactory = new AzureMessagingFactory(messageStore);
             var messageBus = messageFactory.CreateMessageBus();
@@ -212,6 +198,17 @@ namespace MessageBusLogger
                     startIndex += wordStartIndex + word.Length;
                 }
             }
+        }
+        
+        private void ChangeAzureMessageBusConnectionString(string connectionString)
+        {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+            xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionString;
+            //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
+            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            ConfigurationManager.RefreshSection("orchestrationAzure");
         }
     }
 }
