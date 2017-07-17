@@ -50,17 +50,27 @@ namespace MessageBusLogger
 
             if (!string.IsNullOrEmpty(connectionStringCurrentConnected))
             {
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                try
+                {
+                    var xmlDoc = new XmlDocument();
+                    xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
-                xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionStringCurrentConnected;
-                //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
-                xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-                ConfigurationManager.RefreshSection("orchestrationAzure");
-            }
-            
-            var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
-            messageEventListener.StartListen();
+                    xmlDoc.SelectSingleNode("//orchestrationAzure").Attributes["connectionString"].Value = connectionStringCurrentConnected;
+                    //"Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                    ConfigurationManager.RefreshSection("orchestrationAzure");
+
+                    var task = Task.Run(() =>
+                    {
+                        var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
+                        messageEventListener.StartListen();
+                    });
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }            
 
         }
 
@@ -84,7 +94,8 @@ namespace MessageBusLogger
         {
             assembly = Assembly.Load(ASSEMBLY_NAME);
             var myType = typeof(IMessage);
-            var types = assembly.ExportedTypes.Where(a => myType.IsAssignableFrom(a))
+            var types = assembly.ExportedTypes.Where(a => myType.IsAssignableFrom(a)
+            && !a.FullName.Contains("+Types"))
                 .OrderBy(a => a.FullName)
                 .Select(a => a.FullName.Replace(ASSEMBLY_NAME + ".", "")).ToList();
             types.Insert(0, ALL_TYPES);
@@ -146,10 +157,6 @@ namespace MessageBusLogger
             var messageFactory = new AzureMessagingFactory(messageStore);
             var messageBus = messageFactory.CreateMessageBus();
 
-            //var type = messages[0].Type;
-            //var classType = assembly.GetType(type);
-            //var message = ParseMessage(messages[0].MessageContent.Message, classType);
-
             messageBus.Publish(this.selectedMessage);
         }
         
@@ -166,14 +173,44 @@ namespace MessageBusLogger
             return message;
         }
 
-        private void txtMessages_KeyUp(object sender, KeyEventArgs e)
+        private void btn_Find_Click(object sender, EventArgs e)
         {
-            if(e.Modifiers == Keys.Control && e.KeyCode == Keys.F)
+            this.HighlightWords(new string[] { this.txt_Find.Text });
+        }
+        
+        private void txt_Find_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                this.txt_Find.Visible = !this.txt_Find.Visible;
-                this.btn_Find.Visible = !this.btn_Find.Visible;
-                this.txtMessages.Dock = this.btn_Find.Visible ? DockStyle.None : DockStyle.Fill;
-                this.txtMessages.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                this.HighlightWords(new string[] { this.txt_Find.Text });
+            }
+        }
+
+        private void HighlightWords(string[] words)
+        {
+            this.txtMessages.SelectionStart = 0;
+            this.txtMessages.SelectionLength = this.txtMessages.Text.Length;
+            this.txtMessages.SelectionBackColor = Color.WhiteSmoke;
+
+            foreach (string word in words)
+            {
+                int startIndex = 0;
+                while (startIndex < this.txtMessages.TextLength)
+                {
+                    int wordStartIndex = this.txtMessages.Find(word, startIndex, RichTextBoxFinds.None);
+                    if (wordStartIndex != -1)
+                    {
+                        this.txtMessages.SelectionStart = wordStartIndex;
+                        this.txtMessages.SelectionLength = word.Length;
+                        this.txtMessages.SelectionBackColor = Color.Yellow;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    startIndex += wordStartIndex + word.Length;
+                }
             }
         }
     }
