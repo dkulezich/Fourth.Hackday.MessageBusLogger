@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridMessages = new System.Windows.Forms.DataGridView();
+            this.txtMessages = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbSourceSystem = new System.Windows.Forms.ComboBox();
             this.sourceSystem_lbl = new System.Windows.Forms.Label();
@@ -41,7 +42,8 @@
             this.cmbMessageType = new System.Windows.Forms.ComboBox();
             this.BtnResendMessage = new System.Windows.Forms.Button();
             this.txt_ResendString = new System.Windows.Forms.TextBox();
-            this.txtMessages = new RichTextBoxFind.RichTextBoxEnh();
+            this.txt_Find = new System.Windows.Forms.TextBox();
+            this.btn_Find = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,10 +54,10 @@
             // 
             // subscrBtn
             // 
-            this.subscrBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.subscrBtn.Location = new System.Drawing.Point(698, 12);
+            this.subscrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.subscrBtn.Location = new System.Drawing.Point(707, 10);
             this.subscrBtn.Name = "subscrBtn";
-            this.subscrBtn.Size = new System.Drawing.Size(122, 20);
+            this.subscrBtn.Size = new System.Drawing.Size(115, 25);
             this.subscrBtn.TabIndex = 0;
             this.subscrBtn.Text = "Connect";
             this.subscrBtn.UseVisualStyleBackColor = true;
@@ -63,7 +65,8 @@
             // 
             // txt_ConnectionStringListener
             // 
-            this.txt_ConnectionStringListener.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txt_ConnectionStringListener.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_ConnectionStringListener.Location = new System.Drawing.Point(109, 12);
             this.txt_ConnectionStringListener.Name = "txt_ConnectionStringListener";
             this.txt_ConnectionStringListener.Size = new System.Drawing.Size(583, 20);
@@ -71,7 +74,6 @@
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 16);
             this.label1.Name = "label1";
@@ -93,9 +95,11 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btn_Find);
+            this.splitContainer1.Panel2.Controls.Add(this.txt_Find);
             this.splitContainer1.Panel2.Controls.Add(this.txtMessages);
             this.splitContainer1.Size = new System.Drawing.Size(810, 365);
-            this.splitContainer1.SplitterDistance = 378;
+            this.splitContainer1.SplitterDistance = 388;
             this.splitContainer1.TabIndex = 3;
             // 
             // gridMessages
@@ -113,9 +117,24 @@
             this.gridMessages.Name = "gridMessages";
             this.gridMessages.ReadOnly = true;
             this.gridMessages.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridMessages.Size = new System.Drawing.Size(378, 365);
+            this.gridMessages.Size = new System.Drawing.Size(386, 365);
             this.gridMessages.TabIndex = 4;
             this.gridMessages.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMessages_RowEnter);
+            // 
+            // txtMessages
+            // 
+            this.txtMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMessages.Location = new System.Drawing.Point(0, 34);
+            this.txtMessages.Name = "txtMessages";
+            this.txtMessages.ReadOnly = true;
+            this.txtMessages.Size = new System.Drawing.Size(418, 331);
+            this.txtMessages.TabIndex = 0;
+            this.txtMessages.Text = "";
+            this.txtMessages.WordWrap = false;
+            this.txtMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMessages_KeyUp);
             // 
             // groupBox1
             // 
@@ -165,7 +184,7 @@
             this.btnGetMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGetMessages.Location = new System.Drawing.Point(694, 31);
             this.btnGetMessages.Name = "btnGetMessages";
-            this.btnGetMessages.Size = new System.Drawing.Size(108, 23);
+            this.btnGetMessages.Size = new System.Drawing.Size(108, 25);
             this.btnGetMessages.TabIndex = 5;
             this.btnGetMessages.Text = "Get messages";
             this.btnGetMessages.UseVisualStyleBackColor = true;
@@ -184,10 +203,10 @@
             // BtnResendMessage
             // 
             this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnResendMessage.Location = new System.Drawing.Point(11, 477);
+            this.BtnResendMessage.Location = new System.Drawing.Point(11, 476);
             this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2);
             this.BtnResendMessage.Name = "BtnResendMessage";
-            this.BtnResendMessage.Size = new System.Drawing.Size(115, 23);
+            this.BtnResendMessage.Size = new System.Drawing.Size(115, 25);
             this.BtnResendMessage.TabIndex = 6;
             this.BtnResendMessage.Text = "Resend message";
             this.BtnResendMessage.UseVisualStyleBackColor = true;
@@ -202,15 +221,24 @@
             this.txt_ResendString.Size = new System.Drawing.Size(671, 20);
             this.txt_ResendString.TabIndex = 7;
             // 
-            // txtMessages
+            // txt_Find
             // 
-            this.txtMessages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtMessages.Location = new System.Drawing.Point(0, 0);
-            this.txtMessages.Name = "txtMessages";
-            this.txtMessages.Size = new System.Drawing.Size(428, 365);
-            this.txtMessages.TabIndex = 0;
-            this.txtMessages.Text = "";
-            this.txtMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMessages_KeyUp);
+            this.txt_Find.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Find.Location = new System.Drawing.Point(0, 6);
+            this.txt_Find.Name = "txt_Find";
+            this.txt_Find.Size = new System.Drawing.Size(285, 20);
+            this.txt_Find.TabIndex = 1;
+            // 
+            // btn_Find
+            // 
+            this.btn_Find.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Find.Location = new System.Drawing.Point(303, 3);
+            this.btn_Find.Name = "btn_Find";
+            this.btn_Find.Size = new System.Drawing.Size(108, 25);
+            this.btn_Find.TabIndex = 2;
+            this.btn_Find.Text = "Find";
+            this.btn_Find.UseVisualStyleBackColor = true;
             // 
             // MessageBusLogger
             // 
@@ -229,6 +257,7 @@
             this.Text = "Message Bus Logger";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridMessages)).EndInit();
@@ -254,7 +283,9 @@
         private System.Windows.Forms.Label sourceSystem_lbl;
         private System.Windows.Forms.ComboBox cmbSourceSystem;
         private System.Windows.Forms.TextBox txt_ResendString;
-        private RichTextBoxFind.RichTextBoxEnh txtMessages;
+        private System.Windows.Forms.RichTextBox txtMessages;
+        private System.Windows.Forms.TextBox txt_Find;
+        private System.Windows.Forms.Button btn_Find;
     }
 }
 

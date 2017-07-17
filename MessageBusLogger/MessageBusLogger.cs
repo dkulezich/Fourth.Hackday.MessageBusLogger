@@ -170,8 +170,10 @@ namespace MessageBusLogger
         {
             if(e.Modifiers == Keys.Control && e.KeyCode == Keys.F)
             {
-                var form = new Find();
-                form.Show();
+                this.txt_Find.Visible = !this.txt_Find.Visible;
+                this.btn_Find.Visible = !this.btn_Find.Visible;
+                this.txtMessages.Dock = this.btn_Find.Visible ? DockStyle.None : DockStyle.Fill;
+                this.txtMessages.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             }
         }
     }
