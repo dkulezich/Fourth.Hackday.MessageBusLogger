@@ -135,10 +135,10 @@
             // 
             // btn_Find
             // 
-            this.btn_Find.Location = new System.Drawing.Point(416, 4);
-            this.btn_Find.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_Find.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Find.Location = new System.Drawing.Point(303, 3);
             this.btn_Find.Name = "btn_Find";
-            this.btn_Find.Size = new System.Drawing.Size(144, 31);
+            this.btn_Find.Size = new System.Drawing.Size(108, 25);
             this.btn_Find.TabIndex = 2;
             this.btn_Find.Text = "Find";
             this.btn_Find.UseVisualStyleBackColor = true;
@@ -146,10 +146,11 @@
             // 
             // txt_Find
             // 
-            this.txt_Find.Location = new System.Drawing.Point(4, 8);
-            this.txt_Find.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Find.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Find.Location = new System.Drawing.Point(0, 6);
             this.txt_Find.Name = "txt_Find";
-            this.txt_Find.Size = new System.Drawing.Size(404, 22);
+            this.txt_Find.Size = new System.Drawing.Size(285, 20);
             this.txt_Find.TabIndex = 1;
             this.txt_Find.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_Find_KeyUp);
             // 

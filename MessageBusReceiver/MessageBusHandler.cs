@@ -5,6 +5,7 @@ using Google.ProtocolBuffers;
 using Newtonsoft.Json.Linq;
 using Repository;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MessageBusReceiver
@@ -22,6 +23,7 @@ namespace MessageBusReceiver
 
         public Task<MessageHandlerResult> HandleAsync(T payload, string trackingId)
         {
+            Thread.Sleep(5000);
             var jObject = JObject.Parse(payload.ToJson());
             var jToken = jObject.SelectToken("$.Source");
 
