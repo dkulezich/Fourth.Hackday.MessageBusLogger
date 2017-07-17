@@ -91,7 +91,7 @@ namespace Repository
                     query = query.Where(m => m.SourceSystem.Equals(sourceSystem));
                 }
                 
-                messages = query.Take(maxCount).OrderByDescending(x => x.Date)
+                messages = query.OrderByDescending(x => x.Date).Take(maxCount)
                         .Include(m => m.MessageContent).ToList();
             }
 
@@ -104,7 +104,8 @@ namespace Repository
 
             using (var dbContext = new MessageContext())
             {
-                messages = dbContext.MessagesDetails.Select(x => x.SourceSystem).Distinct().ToList();
+                //messages = dbContext.MessagesDetails.Select(x => x.SourceSystem).Distinct().ToList();
+                messages = dbContext.MessagesDetails.GroupBy(m => m.SourceSystem).Select(m => m.Key).ToList();
             }
             return messages;
         }
