@@ -140,7 +140,7 @@ namespace MessageBusLogger
                 type = ASSEMBLY_NAME + "." + type;                
             }
 
-            if (cmbSourceSystem.ToString() != ALL_SYSTEMS)
+            if (cmbSourceSystem.SelectedItem.ToString() != ALL_SYSTEMS)
             {
                 system = cmbSourceSystem.SelectedItem.ToString();                
             }
