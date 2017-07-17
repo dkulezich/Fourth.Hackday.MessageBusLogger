@@ -11,7 +11,7 @@ namespace Repository
         MessageDetails GetById(long id);
         IList<MessageDetails> GetAll();
         IList<MessageDetails> GetByType(string type);
-        IList<MessageDetails> FindBy(DateTime date, string type, string sourceSystem);
+        IList<MessageDetails> FindBy(int maxCount, string type, string sourceSystem, DateTime? startDate, DateTime? endDate);
         IList<string> GetAllSourceSystems();
     }
 }

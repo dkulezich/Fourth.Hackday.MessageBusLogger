@@ -60,25 +60,37 @@ namespace Repository
             }
 
             return messages;
-        }   
-        
-        public IList<MessageDetails> FindBy(DateTime date, string type, string sourceSystem)
+        }
+
+        public IList<MessageDetails> FindBy(int maxCount, string type, string sourceSystem, DateTime? startDate, DateTime? endDate)
         {
             var messages = new List<MessageDetails>();
 
             using (var dbContext = new MessageContext())
             {
-                var query = dbContext.MessagesDetails;
-                if (!string.IsNullOrEmpty(type))
+                var query = dbContext.MessagesDetails.AsQueryable();
+
+
+                if (startDate.HasValue)
                 {
-                    query.Where(m => m.Type.Equals(type));
-                        
-                }
-                if (!string.IsNullOrEmpty(sourceSystem))
-                {
-                    query.Where(m => m.SourceSystem.Equals(sourceSystem));
+                    query = query.Where(c => c.Date >= startDate.Value).Take(maxCount);
                 }
 
+                if (startDate.HasValue)
+                {
+                    query = query.Where(c => c.Date <= endDate.Value).Take(maxCount);
+                }
+
+                if (!string.IsNullOrEmpty(type))
+                {
+                    query.Where(m => m.Type.Equals(type)).Take(maxCount);
+                }
+
+                if (!string.IsNullOrEmpty(sourceSystem))
+                {
+                    query.Where(m => m.SourceSystem.Equals(sourceSystem)).Take(maxCount);
+                }
+                
                 messages = query.OrderByDescending(x => x.Date)
                         .Include(m => m.MessageContent).ToList();
             }
