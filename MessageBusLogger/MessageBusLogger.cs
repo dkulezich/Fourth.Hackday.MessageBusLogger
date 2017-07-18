@@ -121,7 +121,7 @@ namespace MessageBusLogger
             var system = string.Empty;
             var maxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
             var startDate = pickerStartDate.Value;
-            var endDate = pickerEndDate.Value;
+            var endDate = pickerEndDate.Value.AddDays(1);
 
             if (this.cmbMessageType.SelectedItem != null &&
                 this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)

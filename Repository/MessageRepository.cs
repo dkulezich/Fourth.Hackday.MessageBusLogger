@@ -104,7 +104,8 @@ namespace Repository
 
             using (var dbContext = new MessageContext())
             {
-                messages = dbContext.MessagesDetails.Select(x => x.SourceSystem).Distinct().ToList();
+                //messages = dbContext.MessagesDetails.Select(x => x.SourceSystem).Distinct().ToList();
+                messages = dbContext.MessagesDetails.GroupBy(m => m.SourceSystem).Select(m => m.Key).ToList();
             }
 
             return messages;
