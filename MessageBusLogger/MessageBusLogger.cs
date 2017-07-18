@@ -4,22 +4,18 @@ using Fourth.Orchestration.Messaging.Azure;
 using Fourth.Orchestration.Storage.Azure;
 using Google.ProtocolBuffers;
 using MessageBusReceiver;
-using Microsoft.Azure;
-using Microsoft.ServiceBus;
-using Microsoft.ServiceBus.Messaging;
 using Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Xml;
+using Fourth.Orchestration.Model.ProductCatalogue;
 
 namespace MessageBusLogger
 {
@@ -34,6 +30,7 @@ namespace MessageBusLogger
 
         private IMessageRepository repository;
         private IList<MessageDetails> messages;
+        private int selectedMessageIndex;
         private IMessage selectedMessage;
         private Assembly assembly;
         private string connectionStringCurrentConnected;
@@ -72,16 +69,16 @@ namespace MessageBusLogger
 
         private void gridMessages_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var i = e.RowIndex;
+            this.selectedMessageIndex = e.RowIndex;
             this.txtMessages.Clear();
 
-            var type = messages[i].Type;
+            var type = messages[this.selectedMessageIndex].Type;
             var classType = assembly.GetType(type);
-            var message = ParseMessage(messages[i].MessageContent.Message, classType);
+            var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
             this.selectedMessage = message;
-            this.txtMessages.AppendText($"{i + 1} {new string('-', 50)}\r\n");
+            this.txtMessages.AppendText($"{this.selectedMessageIndex + 1} {new string('-', 50)}\r\n");
             this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\r\n");
-            this.txtMessages.AppendText($"DateTime: {messages[i].Date}\r\n");
+            this.txtMessages.AppendText($"DateTime: {messages[this.selectedMessageIndex].Date}\r\n");
             this.txtMessages.AppendText($"{message.ToString()}\r\n");
         }
 
@@ -122,7 +119,7 @@ namespace MessageBusLogger
         {
             var type = string.Empty;
             var system = string.Empty;
-            var maxCount = Int32.Parse(cmbMaxCount.SelectedItem.ToString());
+            var maxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
             var startDate = pickerStartDate.Value;
             var endDate = pickerEndDate.Value;
 
@@ -158,14 +155,33 @@ namespace MessageBusLogger
                 connectionString = connectionStringCurrentConnected;
             }
 
-            ChangeAzureMessageBusConnectionString(connectionString);
-            var messageStore = new AzureMessageStore();
-            var messageFactory = new AzureMessagingFactory(messageStore);
-            var messageBus = messageFactory.CreateMessageBus();
+            try
+            {
+                ChangeAzureMessageBusConnectionString(connectionString);
+                var messageStore = new AzureMessageStore();
+                var messageFactory = new AzureMessagingFactory(messageStore);
+                var messageBus = messageFactory.CreateMessageBus();
+                ChangeSequenceNumber(this.selectedMessage);
+                var result = messageBus.Publish(this.selectedMessage);
 
-            messageBus.Publish(this.selectedMessage);
+                if (result)
+                {
+                    MessageBox.Show("Successfully resent!");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-        
+
+        private void ChangeSequenceNumber(IMessage selectedMessage)
+        {
+            var type = messages[this.selectedMessageIndex].Type;
+            var classType = assembly.GetType(type);
+            var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
+            Events.ProductLocationsModified a = Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified.ParseFrom(message.ToByteString());
+        }
 
         private static IMessage ParseMessage(string messageBase64, Type messageType)
         {

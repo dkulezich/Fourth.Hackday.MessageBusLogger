@@ -23,7 +23,7 @@ namespace MessageBusReceiver
 
         public Task<MessageHandlerResult> HandleAsync(T payload, string trackingId)
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             var jObject = JObject.Parse(payload.ToJson());
             var jToken = jObject.SelectToken("$.Source");
 

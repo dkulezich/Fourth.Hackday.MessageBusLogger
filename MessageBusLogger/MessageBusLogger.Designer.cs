@@ -307,7 +307,6 @@
             // BtnResendMessage
             // 
             this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnResendMessage.Enabled = false;
             this.BtnResendMessage.Location = new System.Drawing.Point(11, 496);
             this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnResendMessage.Name = "BtnResendMessage";
@@ -321,7 +320,6 @@
             // 
             this.txt_ResendString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_ResendString.Enabled = false;
             this.txt_ResendString.Location = new System.Drawing.Point(149, 499);
             this.txt_ResendString.Name = "txt_ResendString";
             this.txt_ResendString.Size = new System.Drawing.Size(686, 20);
