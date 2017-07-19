@@ -35,10 +35,14 @@ namespace MessageBusLogger
         private IMessage selectedMessage;
         private Assembly assembly;
         private string connectionStringCurrentConnected;
+        private Repository.Models.Filter filter;
+        private MessageEventListener messageEventListener;
 
         public MessageBusLogger()
-        {
+        {            
             InitializeComponent();
+            btnDisconnect.Hide();
+            EnableUi(false);
             LoadMessageTypeComboBox();
             LoadMaxCountValuesComboBox();
             SetDateTimePickerDefaultValues();
@@ -46,26 +50,42 @@ namespace MessageBusLogger
             LoadSourceSystemComboBox();
         }
 
-        private void connectBtn_Click(object sender, EventArgs e)
+        private void btnSubscr_Click(object sender, EventArgs e)
         {
-            connectionStringCurrentConnected = this.txt_ConnectionStringListener.Text;
+            connectionStringCurrentConnected = this.txtConnectionStringListener.Text;
 
             if (!string.IsNullOrEmpty(connectionStringCurrentConnected))
             {
                 try
                 {
                     ChangeAzureMessageBusConnectionString(connectionStringCurrentConnected);
-                    var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
+                    messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
                     var task = Task.Run(() =>
                     {
                         messageEventListener.StartListen();                        
                     });
+
+                    btnSubscr.Hide();
+                    btnDisconnect.Show();
+                    txtConnectionStringListener.Enabled = false;
+
+                    EnableUi(true);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            messageEventListener.StopListen();
+            btnSubscr.Show();
+            btnDisconnect.Hide();
+            txtConnectionStringListener.Enabled = true;
+            gridMessages.DataSource = null;
+            EnableUi(false);
         }
 
         private void gridMessages_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -83,13 +103,22 @@ namespace MessageBusLogger
             this.txtMessages.AppendText($"{message.ToString()}");
         }
 
+        private void EnableUi(bool enabled)
+        {
+            groupFilters.Enabled = enabled;
+            mainContainer.Enabled = enabled;
+            txtResendString.Enabled = enabled;
+            btnResendMessage.Enabled = enabled;
+            label2.Enabled = enabled;
+        }
 
         private void LoadMessageTypeComboBox()
         {
             assembly = Assembly.Load(ASSEMBLY_NAME);
             var myType = typeof(IMessage);
             var types = assembly.ExportedTypes.Where(a => myType.IsAssignableFrom(a)
-            && !a.FullName.Contains("+Types"))
+            && !a.FullName.Contains("+Types")
+            && !a.FullName.Contains("Commands+"))
                 .OrderBy(a => a.FullName)
                 .Select(a => a.FullName.Replace(ASSEMBLY_NAME + ".", "")).ToList();
             types.Insert(0, ALL_TYPES);
@@ -107,7 +136,7 @@ namespace MessageBusLogger
 
         private void LoadMaxCountValuesComboBox()
         {
-            cmbMaxCount.SelectedIndex = 0;
+            cmbMaxCount.SelectedIndex = 3;
         }
 
         private void SetDateTimePickerDefaultValues()
@@ -115,42 +144,49 @@ namespace MessageBusLogger
             pickerStartDate.Value = DateTime.Today.AddMonths(-1);
             pickerEndDate.Value = DateTime.Today;
         }
-
+        
         private void btnGetMessages_Click(object sender, EventArgs e)
         {
-            var type = string.Empty;
-            var system = string.Empty;
-            var maxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
-            var startDate = pickerStartDate.Value;
-            var endDate = pickerEndDate.Value.AddDays(1);
+            filter = new Repository.Models.Filter();
+            filter.Type = string.Empty;
+            filter.SourceSystem = string.Empty;
+            filter.MaxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
+            filter.StartDate = pickerStartDate.Value;
+            filter.EndDate = pickerEndDate.Value.AddDays(1);
+            filter.Endpoint = txtConnectionStringListener.Text;
+
+            if (chbShowAll.Checked)
+            {
+                filter.Endpoint = string.Empty;
+            }
 
             if (this.cmbMessageType.SelectedItem != null &&
                 this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
             {
-                type = this.cmbMessageType.SelectedItem.ToString();
-                type = ASSEMBLY_NAME + "." + type;                
+                filter.Type = this.cmbMessageType.SelectedItem.ToString();
+                filter.Type = ASSEMBLY_NAME + "." + filter.Type;                
             }
 
             if (cmbSourceSystem.SelectedItem.ToString() != ALL_SYSTEMS)
             {
-                system = cmbSourceSystem.SelectedItem.ToString();                
+                filter.SourceSystem = cmbSourceSystem.SelectedItem.ToString();                
             }
             
-            messages = repository.FindBy(maxCount, type, system, startDate, endDate);
+            messages = repository.FindBy(filter);
 
             gridMessages.DataSource = messages.Select(m => new
             {
-                TrackingId = m.TrackingId,
-                Source = m.SourceSystem,
                 DateTime = m.Date,
                 Type = m.Type,
-                Environment = m.Environment
+                Source = m.SourceSystem,
+                Endpoint = m.MessageBusEndpoint,
+                TrackingId = m.TrackingId    
             }).ToList();
         }
 
         private void BtnResendMessage_Click(object sender, EventArgs e)
         {
-            var connectionString = this.txt_ResendString.Text;
+            var connectionString = this.txtResendString.Text;
             if (string.IsNullOrEmpty(connectionString))
             {
                 connectionString = connectionStringCurrentConnected;
@@ -201,16 +237,16 @@ namespace MessageBusLogger
             return message;
         }
 
-        private void btn_Find_Click(object sender, EventArgs e)
+        private void btnFind_Click(object sender, EventArgs e)
         {
-            this.HighlightWords(new string[] { this.txt_Find.Text });
+            this.HighlightWords(new string[] { this.txtFind.Text });
         }
         
-        private void txt_Find_KeyUp(object sender, KeyEventArgs e)
+        private void txtFind_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.HighlightWords(new string[] { this.txt_Find.Text });
+                this.HighlightWords(new string[] { this.txtFind.Text });
             }
         }
 
@@ -252,5 +288,6 @@ namespace MessageBusLogger
             xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             ConfigurationManager.RefreshSection("orchestrationAzure");
         }
+        
     }
 }
