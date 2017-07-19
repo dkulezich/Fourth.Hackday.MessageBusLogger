@@ -63,13 +63,6 @@ namespace MessageBusListener
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following with your own logic.
-            //while (!cancellationToken.IsCancellationRequested)
-            //{
-            //    Trace.TraceInformation("Working");
-            //    await Task.Delay(1000);
-            //}
-
             var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
             messageEventListener.StartListen();
         }

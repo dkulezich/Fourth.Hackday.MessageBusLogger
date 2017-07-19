@@ -131,7 +131,7 @@
             // 
             this.btn_Find.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Find.Location = new System.Drawing.Point(312, 0);
-            this.btn_Find.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Find.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Find.Name = "btn_Find";
             this.btn_Find.Size = new System.Drawing.Size(113, 23);
             this.btn_Find.TabIndex = 2;
@@ -144,7 +144,7 @@
             this.txt_Find.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Find.Location = new System.Drawing.Point(2, 2);
-            this.txt_Find.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_Find.Margin = new System.Windows.Forms.Padding(2);
             this.txt_Find.Name = "txt_Find";
             this.txt_Find.Size = new System.Drawing.Size(292, 20);
             this.txt_Find.TabIndex = 1;
@@ -158,7 +158,6 @@
             this.txtMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMessages.Location = new System.Drawing.Point(0, 34);
             this.txtMessages.Name = "txtMessages";
-            this.txtMessages.ReadOnly = true;
             this.txtMessages.Size = new System.Drawing.Size(427, 332);
             this.txtMessages.TabIndex = 0;
             this.txtMessages.Text = "";
@@ -197,7 +196,7 @@
             "500",
             "1000"});
             this.cmbMaxCount.Location = new System.Drawing.Point(584, 20);
-            this.cmbMaxCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbMaxCount.Margin = new System.Windows.Forms.Padding(2);
             this.cmbMaxCount.Name = "cmbMaxCount";
             this.cmbMaxCount.Size = new System.Drawing.Size(92, 21);
             this.cmbMaxCount.TabIndex = 13;
@@ -215,7 +214,7 @@
             // 
             this.pickerEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.pickerEndDate.Location = new System.Drawing.Point(383, 49);
-            this.pickerEndDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pickerEndDate.Margin = new System.Windows.Forms.Padding(2);
             this.pickerEndDate.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.pickerEndDate.Name = "pickerEndDate";
             this.pickerEndDate.Size = new System.Drawing.Size(103, 20);
@@ -228,7 +227,7 @@
             this.pickerStartDate.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.pickerStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.pickerStartDate.Location = new System.Drawing.Point(383, 20);
-            this.pickerStartDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pickerStartDate.Margin = new System.Windows.Forms.Padding(2);
             this.pickerStartDate.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.pickerStartDate.Name = "pickerStartDate";
             this.pickerStartDate.Size = new System.Drawing.Size(103, 20);
@@ -260,7 +259,7 @@
             // 
             this.cmbSourceSystem.FormattingEnabled = true;
             this.cmbSourceSystem.Location = new System.Drawing.Point(86, 50);
-            this.cmbSourceSystem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbSourceSystem.Margin = new System.Windows.Forms.Padding(2);
             this.cmbSourceSystem.Name = "cmbSourceSystem";
             this.cmbSourceSystem.Size = new System.Drawing.Size(92, 21);
             this.cmbSourceSystem.TabIndex = 7;
@@ -308,7 +307,7 @@
             // 
             this.BtnResendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnResendMessage.Location = new System.Drawing.Point(11, 496);
-            this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnResendMessage.Margin = new System.Windows.Forms.Padding(2);
             this.BtnResendMessage.Name = "BtnResendMessage";
             this.BtnResendMessage.Size = new System.Drawing.Size(115, 25);
             this.BtnResendMessage.TabIndex = 6;
@@ -329,7 +328,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(850, 537);
+            this.ClientSize = new System.Drawing.Size(850, 538);
             this.Controls.Add(this.txt_ResendString);
             this.Controls.Add(this.BtnResendMessage);
             this.Controls.Add(this.groupBox1);

@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Xml;
 using Fourth.Orchestration.Model.ProductCatalogue;
+using System.Text;
 
 namespace MessageBusLogger
 {
@@ -76,10 +77,10 @@ namespace MessageBusLogger
             var classType = assembly.GetType(type);
             var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
             this.selectedMessage = message;
-            this.txtMessages.AppendText($"{this.selectedMessageIndex + 1} {new string('-', 50)}\r\n");
-            this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\r\n");
-            this.txtMessages.AppendText($"DateTime: {messages[this.selectedMessageIndex].Date}\r\n");
-            this.txtMessages.AppendText($"{message.ToString()}\r\n");
+            //this.txtMessages.AppendText($"{this.selectedMessageIndex + 1} {new string('-', 50)}\r\n");
+            //this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\r\n");
+            //this.txtMessages.AppendText($"DateTime: {messages[this.selectedMessageIndex].Date}\r\n");
+            this.txtMessages.AppendText($"{message.ToString()}");
         }
 
 
@@ -161,7 +162,12 @@ namespace MessageBusLogger
                 var messageStore = new AzureMessageStore();
                 var messageFactory = new AzureMessagingFactory(messageStore);
                 var messageBus = messageFactory.CreateMessageBus();
-                ChangeSequenceNumber(this.selectedMessage);
+                //ChangeSequenceNumber(this.selectedMessage);
+                var type = messages[this.selectedMessageIndex].Type;
+                var classType = assembly.GetType(type);
+                byte[] toBytes = Encoding.ASCII.GetBytes(this.txtMessages.Text);
+                var a = ByteString.CopyFrom(toBytes).ToBase64();
+                var mes = ParseMessage(a, classType); 
                 var result = messageBus.Publish(this.selectedMessage);
 
                 if (result)

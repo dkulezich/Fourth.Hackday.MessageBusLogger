@@ -17,6 +17,10 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "MessageBusReceiverService",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusListener", "MessageBusListener\MessageBusListener.csproj", "{CBABBCB1-7488-45CB-8DE7-CD74BB04E306}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure service", "Azure service", "{D7A7D5BB-086B-4C7D-B854-683CADFD01D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{0C88B27B-D601-4481-9378-E816B92BE0C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +58,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{560386FB-4F0C-474D-8A78-A8A235B10538} = {0C88B27B-D601-4481-9378-E816B92BE0C4}
+		{C051885A-406A-40AE-8AF3-1ED9889EB505} = {D7A7D5BB-086B-4C7D-B854-683CADFD01D4}
+		{CBABBCB1-7488-45CB-8DE7-CD74BB04E306} = {D7A7D5BB-086B-4C7D-B854-683CADFD01D4}
 	EndGlobalSection
 EndGlobal
