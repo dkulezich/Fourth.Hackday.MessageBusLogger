@@ -4,6 +4,7 @@ using DbCreator.Model;
 using System.Linq;
 using DbCreator;
 using System.Data.Entity;
+using Repository.Models;
 
 namespace Repository
 {
@@ -62,7 +63,7 @@ namespace Repository
             return messages;
         }
 
-        public IList<MessageDetails> FindBy(int maxCount, string type, string sourceSystem, DateTime? startDate, DateTime? endDate)
+        public IList<MessageDetails> FindBy(Filter filter)
         {
             var messages = new List<MessageDetails>();
 
@@ -71,27 +72,26 @@ namespace Repository
                 var query = dbContext.MessagesDetails.AsQueryable();
 
 
-                if (startDate.HasValue)
+                 query = query.Where(c => c.Date >= filter.StartDate);
+
+                 query = query.Where(c => c.Date <= filter.EndDate);
+
+                if (!string.IsNullOrEmpty(filter.Type))
                 {
-                    query = query.Where(c => c.Date >= startDate.Value);
+                    query = query.Where(m => m.Type.Equals(filter.Type));
                 }
 
-                if (startDate.HasValue)
+                if (!string.IsNullOrEmpty(filter.SourceSystem))
                 {
-                    query = query.Where(c => c.Date <= endDate.Value);
+                    query = query.Where(m => m.SourceSystem.Equals(filter.SourceSystem));
                 }
 
-                if (!string.IsNullOrEmpty(type))
+                if (!string.IsNullOrEmpty(filter.Endpoint))
                 {
-                    query = query.Where(m => m.Type.Equals(type));
+                    query = query.Where(m => m.MessageBusEndpoint.Equals(filter.Endpoint));
                 }
 
-                if (!string.IsNullOrEmpty(sourceSystem))
-                {
-                    query = query.Where(m => m.SourceSystem.Equals(sourceSystem));
-                }
-                
-                messages = query.OrderByDescending(x => x.Date).Take(maxCount)
+                messages = query.OrderByDescending(x => x.Date).Take(filter.MaxCount)
                         .Include(m => m.MessageContent).ToList();
             }
 

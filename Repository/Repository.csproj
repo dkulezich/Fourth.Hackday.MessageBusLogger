@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="IMessageRepository.cs" />
     <Compile Include="MessageRepository.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

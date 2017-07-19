@@ -1,4 +1,5 @@
 ﻿using DbCreator.Model;
+using Repository.Models;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace Repository
         MessageDetails GetById(long id);
         IList<MessageDetails> GetAll();
         IList<MessageDetails> GetByType(string type);
-        IList<MessageDetails> FindBy(int maxCount, string type, string sourceSystem, DateTime? startDate, DateTime? endDate);
+        IList<MessageDetails> FindBy(Filter filter);
         IList<string> GetAllSourceSystems();
     }
 }
