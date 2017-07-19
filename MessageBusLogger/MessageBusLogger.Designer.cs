@@ -219,12 +219,11 @@
             this.pickerEndDate.Name = "pickerEndDate";
             this.pickerEndDate.Size = new System.Drawing.Size(103, 20);
             this.pickerEndDate.TabIndex = 11;
-            this.pickerEndDate.UseWaitCursor = true;
             this.pickerEndDate.Value = new System.DateTime(2017, 7, 17, 19, 7, 52, 0);
             // 
             // pickerStartDate
             // 
-            this.pickerStartDate.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.pickerStartDate.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pickerStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.pickerStartDate.Location = new System.Drawing.Point(383, 20);
             this.pickerStartDate.Margin = new System.Windows.Forms.Padding(2);
@@ -232,7 +231,6 @@
             this.pickerStartDate.Name = "pickerStartDate";
             this.pickerStartDate.Size = new System.Drawing.Size(103, 20);
             this.pickerStartDate.TabIndex = 10;
-            this.pickerStartDate.UseWaitCursor = true;
             this.pickerStartDate.Value = new System.DateTime(2017, 7, 17, 19, 7, 52, 0);
             // 
             // lblEndDate

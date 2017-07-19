@@ -28,7 +28,7 @@ namespace MessageBusReceiver
 
             var messageDetails = new MessageDetails();
             messageDetails.Date = DateTime.UtcNow;
-            messageDetails.Environment = this.endpoint;
+            messageDetails.MessageBusEndpoint = this.endpoint;
             messageDetails.Type = payload.GetType().FullName;
             messageDetails.TrackingId = trackingId;
             messageDetails.SourceSystem = jToken.ToString();

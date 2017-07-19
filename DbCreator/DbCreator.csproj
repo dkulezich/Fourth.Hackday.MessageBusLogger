@@ -68,6 +68,14 @@
     <Compile Include="Migrations\201707011357063_change to one-one connection.Designer.cs">
       <DependentUpon>201707011357063_change to one-one connection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707191333224_added_column_and_index_creation.cs" />
+    <Compile Include="Migrations\201707191333224_added_column_and_index_creation.Designer.cs">
+      <DependentUpon>201707191333224_added_column_and_index_creation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707191336553_index_creation_on_system_date_endpoint.cs" />
+    <Compile Include="Migrations\201707191336553_index_creation_on_system_date_endpoint.Designer.cs">
+      <DependentUpon>201707191336553_index_creation_on_system_date_endpoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\MessageContent.cs" />
     <Compile Include="Model\MessageDetails.cs" />
@@ -95,6 +103,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707011357063_change to one-one connection.resx">
       <DependentUpon>201707011357063_change to one-one connection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707191333224_added_column_and_index_creation.resx">
+      <DependentUpon>201707191333224_added_column_and_index_creation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707191336553_index_creation_on_system_date_endpoint.resx">
+      <DependentUpon>201707191336553_index_creation_on_system_date_endpoint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
