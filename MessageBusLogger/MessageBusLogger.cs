@@ -45,8 +45,7 @@ namespace MessageBusLogger
             LoadMessageTypeComboBox();
             LoadMaxCountValuesComboBox();
             SetDateTimePickerDefaultValues();
-            repository = new MessageRepository();
-            LoadSourceSystemComboBox();
+            repository = new MessageRepository();            
         }
 
         private void btnSubscr_Click(object sender, EventArgs e)
@@ -69,6 +68,7 @@ namespace MessageBusLogger
                     txtConnectionStringListener.Enabled = false;
 
                     EnableUi(true);
+                    LoadSourceSystemComboBox();
                 }
                 catch (Exception ex)
                 {

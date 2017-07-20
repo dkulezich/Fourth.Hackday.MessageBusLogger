@@ -47,7 +47,6 @@ namespace MessageBusLogger_WPF
             LoadMaxCountValuesComboBox();
             SetDateTimePickerDefaultValues();
             repository = new MessageRepository();
-            LoadSourceSystemComboBox();
         }
 
         private void btnSubscribe_Click(object sender, RoutedEventArgs e)
@@ -70,6 +69,7 @@ namespace MessageBusLogger_WPF
                     txtConnectionStringListener.IsEnabled = false;
 
                     EnableUi(true);
+                    LoadSourceSystemComboBox();
                 }
                 catch (Exception ex)
                 {
