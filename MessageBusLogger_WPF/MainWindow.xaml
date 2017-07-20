@@ -14,7 +14,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="gridMessages" Height="400" Margin="10,10,10,28" VerticalAlignment="Center" SelectionChanged="gridMessages_SelectionChanged" BorderThickness="1" BorderBrush="#FFCCCCCC" HorizontalContentAlignment="Center"/>
-            <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="10,10,0,402" TextWrapping="NoWrap" Grid.Column="1" VerticalAlignment="Center" Width="322" Height="26" TextChanged="txtFind_TextChanged"/>
+            <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="10,10,0,402" TextWrapping="NoWrap" Grid.Column="1" VerticalAlignment="Center" Width="322" Height="26"/>
             <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Right" Margin="0,10,10,402" VerticalAlignment="Center" Width="98" RenderTransformOrigin="0.196,0.785" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10" Grid.Column="1" VerticalContentAlignment="Center" Height="27" Click="btnFind_Click"/>
             <RichTextBox x:Name="txtMessages" Height="369" Margin="8,41,10,28" VerticalAlignment="Center" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Block.LineHeight="6" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <FlowDocument/>
