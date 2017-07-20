@@ -198,11 +198,11 @@ namespace MessageBusLogger
                 var messageFactory = new AzureMessagingFactory(messageStore);
                 var messageBus = messageFactory.CreateMessageBus();
                 //ChangeSequenceNumber(this.selectedMessage);
-                var type = messages[this.selectedMessageIndex].Type;
-                var classType = assembly.GetType(type);
-                byte[] toBytes = Encoding.ASCII.GetBytes(this.txtMessages.Text);
-                var a = ByteString.CopyFrom(toBytes).ToBase64();
-                var mes = ParseMessage(a, classType); 
+                //var type = messages[this.selectedMessageIndex].Type;
+                //var classType = assembly.GetType(type);
+                //byte[] toBytes = Encoding.ASCII.GetBytes(this.txtMessages.Text);
+                //var a = ByteString.CopyFrom(toBytes).ToBase64();
+                //var mes = ParseMessage(a, classType); 
                 var result = messageBus.Publish(this.selectedMessage);
 
                 if (result)

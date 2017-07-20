@@ -19,6 +19,7 @@ namespace MessageBusListener
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
         private const string SUBSCRIPTION_NAME = "ilian";
         private string connectionStringCurrentConnected = "Endpoint=sb://testmessagebus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uPsT17RkgiqRRDzqQcGzUubmxc2d05yGS/pH8Psx2KI=";
+        private MessageEventListener messageEventListener;
 
         public override void Run()
         {
@@ -52,6 +53,10 @@ namespace MessageBusListener
         public override void OnStop()
         {
             Trace.TraceInformation("MessageBusListener is stopping");
+            if (messageEventListener != null)
+            {
+                messageEventListener.StopListen();
+            }
 
             this.cancellationTokenSource.Cancel();
             this.runCompleteEvent.WaitOne();
@@ -63,8 +68,12 @@ namespace MessageBusListener
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            var messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
-            messageEventListener.StartListen();
+            messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
+            var task = Task.Run(() =>
+            {
+                messageEventListener.StartListen();
+            });
+            //messageEventListener.StartListen();           
         }
     }
 }
