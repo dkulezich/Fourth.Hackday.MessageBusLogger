@@ -23,18 +23,25 @@ namespace MessageBusReceiver
 
         public Task<MessageHandlerResult> HandleAsync(T payload, string trackingId)
         {
-            var jObject = JObject.Parse(payload.ToJson());
-            var jToken = jObject.SelectToken("$.Source");
+            try
+            {
+                var jObject = JObject.Parse(payload.ToJson());
+                var jToken = jObject.SelectToken("$.Source");
 
-            var messageDetails = new MessageDetails();
-            messageDetails.Date = DateTime.UtcNow;
-            messageDetails.MessageBusEndpoint = this.endpoint;
-            messageDetails.Type = payload.GetType().FullName;
-            messageDetails.TrackingId = trackingId;
-            messageDetails.SourceSystem = jToken.ToString();
-            messageContent.Message = payload.ToByteString().ToBase64();
-            messageDetails.MessageContent = messageContent;
-            messageContentRepository.Insert(messageDetails);
+                var messageDetails = new MessageDetails();
+                messageDetails.Date = DateTime.UtcNow;
+                messageDetails.MessageBusEndpoint = this.endpoint;
+                messageDetails.Type = payload.GetType().FullName;
+                messageDetails.TrackingId = trackingId;
+                messageDetails.SourceSystem = jToken.ToString();
+                messageContent.Message = payload.ToByteString().ToBase64();
+                messageDetails.MessageContent = messageContent;
+                messageContentRepository.Insert(messageDetails);
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult<MessageHandlerResult>(MessageHandlerResult.Fatal);
+            }
 
             return Task.FromResult<MessageHandlerResult>(MessageHandlerResult.Success);
         }        

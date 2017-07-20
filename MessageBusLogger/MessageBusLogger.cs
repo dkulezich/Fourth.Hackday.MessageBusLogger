@@ -22,8 +22,8 @@ namespace MessageBusLogger
 {
     public partial class MessageBusLogger : Form
     {
-        //private const string SUBSCRIPTION_NAME = "MessageBusLogger";
-        private const string SUBSCRIPTION_NAME = "ilian";
+        private const string SUBSCRIPTION_NAME = "MessageBusLogger";
+        //private const string SUBSCRIPTION_NAME = "ilian";
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
         private const string ALL_SYSTEMS = "All systems";
@@ -80,7 +80,11 @@ namespace MessageBusLogger
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            messageEventListener.StopListen();
+            if (messageEventListener != null)
+            {
+                messageEventListener.StopListen();
+            }
+
             btnSubscr.Show();
             btnDisconnect.Hide();
             txtConnectionStringListener.Enabled = true;
@@ -100,7 +104,7 @@ namespace MessageBusLogger
             //this.txtMessages.AppendText($"{this.selectedMessageIndex + 1} {new string('-', 50)}\r\n");
             //this.txtMessages.AppendText($"Type: {type.Replace(ASSEMBLY_NAME + ".", "")}\r\n");
             //this.txtMessages.AppendText($"DateTime: {messages[this.selectedMessageIndex].Date}\r\n");
-            this.txtMessages.AppendText($"{message.ToString()}");
+            this.txtMessages.AppendText($"{message.ToJson()}");
         }
 
         private void EnableUi(bool enabled)
@@ -198,12 +202,18 @@ namespace MessageBusLogger
                 var messageStore = new AzureMessageStore();
                 var messageFactory = new AzureMessagingFactory(messageStore);
                 var messageBus = messageFactory.CreateMessageBus();
+
+                //var message = Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified.CreateBuilder()
+                //    .MergeFromJson<Events.ProductLocationsModified.Builder>(this.txtMessages.Text).Build();
+                //var result = messageBus.Publish(message);
+
                 //ChangeSequenceNumber(this.selectedMessage);
                 //var type = messages[this.selectedMessageIndex].Type;
                 //var classType = assembly.GetType(type);
                 //byte[] toBytes = Encoding.ASCII.GetBytes(this.txtMessages.Text);
                 //var a = ByteString.CopyFrom(toBytes).ToBase64();
                 //var mes = ParseMessage(a, classType); 
+
                 var result = messageBus.Publish(this.selectedMessage);
 
                 if (result)
