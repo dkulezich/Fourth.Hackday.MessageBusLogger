@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusLogger", "MessageBusLogger\MessageBusLogger.csproj", "{24F3F65F-23BB-413A-9CB1-8A469FEFFDF3}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure service", "Azure service", "{D7A7D5BB-086B-4C7D-B854-683CADFD01D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{0C88B27B-D601-4481-9378-E816B92BE0C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusLogger_WPF", "MessageBusLogger_WPF\MessageBusLogger_WPF.csproj", "{758F2642-A74C-4830-A6EC-CCF7BF4E0294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{CBABBCB1-7488-45CB-8DE7-CD74BB04E306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBABBCB1-7488-45CB-8DE7-CD74BB04E306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBABBCB1-7488-45CB-8DE7-CD74BB04E306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758F2642-A74C-4830-A6EC-CCF7BF4E0294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758F2642-A74C-4830-A6EC-CCF7BF4E0294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758F2642-A74C-4830-A6EC-CCF7BF4E0294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758F2642-A74C-4830-A6EC-CCF7BF4E0294}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,8 +34,7 @@ namespace MessageBusLogger
         private int selectedMessageIndex;
         private IMessage selectedMessage;
         private Assembly assembly;
-        private string connectionStringCurrentConnected;
-        private Repository.Models.Filter filter;
+        private string connectionStringCurrentConnected;        
         private MessageEventListener messageEventListener;
 
         public MessageBusLogger()
@@ -147,7 +146,7 @@ namespace MessageBusLogger
         
         private void btnGetMessages_Click(object sender, EventArgs e)
         {
-            filter = new Repository.Models.Filter();
+            var filter = new Repository.Models.Filter();
             filter.Type = string.Empty;
             filter.SourceSystem = string.Empty;
             filter.MaxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
