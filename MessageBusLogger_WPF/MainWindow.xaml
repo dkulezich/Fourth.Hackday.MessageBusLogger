@@ -14,17 +14,17 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="gridMessages" Height="400" Margin="10,10,10,28" VerticalAlignment="Center" SelectionChanged="gridMessages_SelectionChanged" BorderThickness="1" BorderBrush="#FFCCCCCC" HorizontalContentAlignment="Center"/>
-            <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="10,10,0,402" TextWrapping="NoWrap" Grid.Column="1" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="322" Height="26"/>
-            <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Right" Margin="0,10,10,402" VerticalAlignment="Center" Width="98" RenderTransformOrigin="0.196,0.785" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10" Grid.Column="1" VerticalContentAlignment="Center" Height="27"/>
+            <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="10,10,0,402" TextWrapping="NoWrap" Grid.Column="1" VerticalAlignment="Center" Width="322" Height="26" TextChanged="txtFind_TextChanged"/>
+            <Button x:Name="btnFind" Content="Find" HorizontalAlignment="Right" Margin="0,10,10,402" VerticalAlignment="Center" Width="98" RenderTransformOrigin="0.196,0.785" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10" Grid.Column="1" VerticalContentAlignment="Center" Height="27" Click="btnFind_Click"/>
             <RichTextBox x:Name="txtMessages" Height="369" Margin="8,41,10,28" VerticalAlignment="Center" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Block.LineHeight="6" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <FlowDocument/>
             </RichTextBox>
         </Grid>
         <Grid x:Name="GroupFilterGrid" Height="102" Margin="0,79,0,0" VerticalAlignment="Top">
             <GroupBox x:Name="groupFilters" Header="Filters" HorizontalAlignment="Center" Margin="0" BorderBrush="{x:Null}" Background="{x:Null}" Controls:GroupBoxHelper.HeaderForeground="{x:Null}" Controls:ControlsHelper.HeaderFontWeight="Bold">
-                <Grid Height="107" VerticalAlignment="Top" Margin="-9,-34,-2,-10" Width="888">
+                <Grid Height="107" VerticalAlignment="Top" Margin="-9,-34,-2,-10" Width="892">
                     <Label x:Name="lblMessageType" Content="Message Type:" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="btnGetMessages" Content="Get Messages" HorizontalAlignment="Left" Margin="768,59,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="1.729,1.728" Click="btnGetMessages_Click" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10" Height="27"
+                    <Button x:Name="btnGetMessages" Content="Get Messages" HorizontalAlignment="Left" Margin="770,59,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="1.729,1.728" Click="btnGetMessages_Click" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10" Height="27"
                             />
                     <Label x:Name="lblSystem" Content="System:" HorizontalAlignment="Left" Margin="47,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.092,0.493"/>
                     <ComboBox x:Name="cmbMessageType" Margin="114,23,0,0" HorizontalAlignment="Left" Width="216" Height="22" VerticalAlignment="Top"/>

@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Xml;
 using MahApps.Metro.Controls;
+using System.Windows.Media;
 
 namespace MessageBusLogger_WPF
 {
@@ -126,10 +127,10 @@ namespace MessageBusLogger_WPF
                 filter.Endpoint = string.Empty;
             }
 
-            if (this.cmbMessageType.SelectedItem != null &&
-                this.cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
+            if (cmbMessageType.SelectedItem != null &&
+                cmbMessageType.SelectedItem.ToString() != ALL_TYPES)
             {
-                filter.Type = this.cmbMessageType.SelectedItem.ToString();
+                filter.Type = cmbMessageType.SelectedItem.ToString();
                 filter.Type = ASSEMBLY_NAME + "." + filter.Type;
             }
 
@@ -160,8 +161,8 @@ namespace MessageBusLogger_WPF
                 .OrderBy(a => a.FullName)
                 .Select(a => a.FullName.Replace(ASSEMBLY_NAME + ".", "")).ToList();
             types.Insert(0, ALL_TYPES);
-            this.cmbMessageType.ItemsSource = types;
-            this.cmbMessageType.SelectedIndex = 0;
+            cmbMessageType.ItemsSource = types;
+            cmbMessageType.SelectedIndex = 0;
         }
 
         private void LoadSourceSystemComboBox()
@@ -187,7 +188,7 @@ namespace MessageBusLogger_WPF
         {
             string messageText = new TextRange(txtMessages.Document.ContentStart, txtMessages.Document.ContentEnd).Text;
 
-            var connectionString = this.txtResendString.Text;
+            var connectionString = txtResendString.Text;
             if (string.IsNullOrEmpty(connectionString))
             {
                 connectionString = connectionStringCurrentConnected;
@@ -199,7 +200,7 @@ namespace MessageBusLogger_WPF
                 var messageStore = new AzureMessageStore();
                 var messageFactory = new AzureMessagingFactory(messageStore);
                 var messageBus = messageFactory.CreateMessageBus();
-                var result = messageBus.Publish(this.selectedMessage);
+                var result = messageBus.Publish(selectedMessage);
 
                 if (result)
                 {
@@ -233,18 +234,34 @@ namespace MessageBusLogger_WPF
                 if (dg == null) return;
                 var index = dg.SelectedIndex;
 
-                this.selectedMessageIndex = index;
+                selectedMessageIndex = index;
                 txtMessages.Document.Blocks.Clear();
 
-                var type = messages[this.selectedMessageIndex].Type;
+                var type = messages[selectedMessageIndex].Type;
                 var classType = assembly.GetType(type);
-                var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
-                this.selectedMessage = message;
-                this.txtMessages.AppendText($"{message.ToString()}");
+                var message = ParseMessage(messages[selectedMessageIndex].MessageContent.Message, classType);
+                selectedMessage = message;
+                txtMessages.AppendText($"{message.ToString()}");
             }
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void btnFind_Click(object sender, RoutedEventArgs e)
+        {
+            this.HighlightWords(txtFind.Text);
+        }
+
+        private void HighlightWords(string word)        {
+
+            if (!string.IsNullOrEmpty(word))
+            {
+                TextRange range = new TextRange(txtMessages.Document.ContentStart, txtMessages.Document.ContentEnd);
+                // TODO: the selected text should not override the entire message
+                range.Text = word;
+                range.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.CadetBlue));
             }
         }
     }
