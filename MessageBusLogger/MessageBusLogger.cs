@@ -79,7 +79,10 @@ namespace MessageBusLogger
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            messageEventListener.StopListen();
+            if (messageEventListener != null)
+            {
+                messageEventListener.StopListen();
+            }
             btnSubscr.Show();
             btnDisconnect.Hide();
             txtConnectionStringListener.Enabled = true;

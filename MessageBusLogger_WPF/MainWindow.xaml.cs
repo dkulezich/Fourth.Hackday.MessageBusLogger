@@ -15,13 +15,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Xml;
+using MahApps.Metro.Controls;
 
 namespace MessageBusLogger_WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private const string SUBSCRIPTION_NAME = "MessageBusLogger";
         //private const string SUBSCRIPTION_NAME = "ilian";
@@ -80,7 +81,10 @@ namespace MessageBusLogger_WPF
 
         private void btnDisconnect_Click(object sender, RoutedEventArgs e)
         {
-            messageEventListener.StopListen();
+            if (messageEventListener != null)
+            {
+                messageEventListener.StopListen();
+            }
             btnSubscribe.Visibility = Visibility.Visible;
             btnDisconnect.Visibility = Visibility.Hidden;
             txtConnectionStringListener.IsEnabled = true;
@@ -112,7 +116,7 @@ namespace MessageBusLogger_WPF
             var filter = new Repository.Models.Filter();
             filter.Type = string.Empty;
             filter.SourceSystem = string.Empty;
-            filter.MaxCount = int.Parse(cmbMaxCount.SelectedItem.ToString());
+            filter.MaxCount = int.Parse(cmbMaxCount.SelectionBoxItem.ToString());
             filter.StartDate = pickerStartDate.SelectedDate.Value;
             filter.EndDate = pickerEndDate.SelectedDate.Value.AddDays(1);
             filter.Endpoint = txtConnectionStringListener.Text;
@@ -135,7 +139,7 @@ namespace MessageBusLogger_WPF
             }
 
             messages = repository.FindBy(filter);
-
+            
             gridMessages.ItemsSource = messages.Select(m => new
             {
                 DateTime = m.Date,
@@ -195,12 +199,6 @@ namespace MessageBusLogger_WPF
                 var messageStore = new AzureMessageStore();
                 var messageFactory = new AzureMessagingFactory(messageStore);
                 var messageBus = messageFactory.CreateMessageBus();
-                //ChangeSequenceNumber(this.selectedMessage);
-                var type = messages[this.selectedMessageIndex].Type;
-                var classType = assembly.GetType(type);
-                byte[] toBytes = Encoding.ASCII.GetBytes(messageText);
-                var a = ByteString.CopyFrom(toBytes).ToBase64();
-                var mes = ParseMessage(a, classType);
                 var result = messageBus.Publish(this.selectedMessage);
 
                 if (result)
@@ -225,18 +223,29 @@ namespace MessageBusLogger_WPF
             var message = parseMethod.Invoke(null, new object[] { messageBody }) as IMessage;
             return message;
         }
-
-        private void gridMessages_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        
+        private void gridMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGridRow row = ItemsControl.ContainerFromElement((DataGrid)sender, e.OriginalSource as DependencyObject) as DataGridRow;
-            this.selectedMessageIndex = row.GetIndex();
-            txtMessages.Document.Blocks.Clear();
 
-            var type = messages[this.selectedMessageIndex].Type;
-            var classType = assembly.GetType(type);
-            var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
-            this.selectedMessage = message;
-            this.txtMessages.AppendText($"{message.ToString()}");
+            try
+            {
+                var dg = sender as DataGrid;
+                if (dg == null) return;
+                var index = dg.SelectedIndex;
+
+                this.selectedMessageIndex = index;
+                txtMessages.Document.Blocks.Clear();
+
+                var type = messages[this.selectedMessageIndex].Type;
+                var classType = assembly.GetType(type);
+                var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
+                this.selectedMessage = message;
+                this.txtMessages.AppendText($"{message.ToString()}");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
