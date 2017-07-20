@@ -31,7 +31,9 @@ namespace MessageBusReceiver
         {
             var assembly = Assembly.Load(ASSEMBLY_NAME);
             var messageType = typeof(Google.ProtocolBuffers.IMessage);
-            var types = assembly.ExportedTypes.Where(a => messageType.IsAssignableFrom(a))
+            var types = assembly.ExportedTypes.Where(a => messageType.IsAssignableFrom(a)
+            && !a.FullName.Contains("+Types")
+            && !a.FullName.Contains("Commands+"))
                 .OrderBy(a => a.FullName)
                 .Select(a => a.FullName).ToList();
 
@@ -40,7 +42,7 @@ namespace MessageBusReceiver
             for (int i = 0; i < types.Count; i++)
             {
                 //TODO: remove this "if" to subscribe every topic
-                //if(i == 103 || i == 121)
+                //if (i == 103 || i == 121)
                 //{
                     Type classType = assembly.GetType(types[i]);
                     var type = typeof(MessageHandler<>).MakeGenericType(new[] { classType });

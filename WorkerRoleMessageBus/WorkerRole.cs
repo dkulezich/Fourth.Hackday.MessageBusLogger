@@ -10,7 +10,7 @@ namespace WorkerRoleMessageBus
     {
         ManualResetEvent CompletedEvent = new ManualResetEvent(false);
         private const string SUBSCRIPTION_NAME = "MessageBusLogger";
-        private string connectionStringCurrentConnected = "Endpoint=sb://rntestorchestration.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=o4SfS9q+vyffUM10ydy+ccN3Av94GZiNVV2/dyep3j0=";
+        private string connectionStringCurrentConnected = "Endpoint=sb://fourth-qai.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=5WBdFSvRtk5adZ2uoDYtzHaIDcXhJto1G3fQCjfpyjE=";
         private MessageEventListener messageEventListener;
 
         public override void Run()
