@@ -17,6 +17,8 @@ using System.Windows.Documents;
 using System.Xml;
 using MahApps.Metro.Controls;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace MessageBusLogger_WPF
 {
@@ -251,18 +253,45 @@ namespace MessageBusLogger_WPF
 
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
-            this.HighlightWords(txtFind.Text);
+            HighlightWords(txtFind.Text);
         }
 
-        private void HighlightWords(string word)        {
+        private void txtFind_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                HighlightWords(txtFind.Text);
+            }
+        }
+
+        private void HighlightWords(string word)
+        {
+            TextRange range = new TextRange(txtMessages.Document.ContentStart, txtMessages.Document.ContentEnd);
+            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
+            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
 
             if (!string.IsNullOrEmpty(word))
             {
-                TextRange range = new TextRange(txtMessages.Document.ContentStart, txtMessages.Document.ContentEnd);
-                // TODO: the selected text should not override the entire message
-                range.Text = word;
-                range.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.CadetBlue));
+                Regex reg = new Regex(word, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+                var start = txtMessages.Document.ContentStart;
+                while (start != null && start.CompareTo(txtMessages.Document.ContentEnd) < 0)
+                {
+                    if (start.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
+                    {
+                        var match = reg.Match(start.GetTextInRun(LogicalDirection.Forward));
+
+                        var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
+                        textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Cyan));
+                        textrange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+                        start = textrange.End; 
+                    }
+                    start = start.GetNextContextPosition(LogicalDirection.Forward);
+                }
+                
             }
         }
+                
+        
     }
 }
