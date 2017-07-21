@@ -204,11 +204,13 @@ namespace MessageBusLogger
 
                 //var message = Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified.CreateBuilder()
                 //    .MergeFromJson<Events.ProductLocationsModified.Builder>(this.txtMessages.Text).Build();
+
+                //var type = messages[this.selectedMessageIndex].Type;
+                //var classType = assembly.GetType(type);
+                //var message = CreateMessageFromJSON(this.txtMessages.Text, classType);
                 //var result = messageBus.Publish(message);
 
                 //ChangeSequenceNumber(this.selectedMessage);
-                //var type = messages[this.selectedMessageIndex].Type;
-                //var classType = assembly.GetType(type);
                 //byte[] toBytes = Encoding.ASCII.GetBytes(this.txtMessages.Text);
                 //var a = ByteString.CopyFrom(toBytes).ToBase64();
                 //var mes = ParseMessage(a, classType); 
@@ -226,13 +228,25 @@ namespace MessageBusLogger
             }
         }
 
-        private void ChangeSequenceNumber(IMessage selectedMessage)
+        private static IMessage CreateMessageFromJSON(string json, Type messageType)
         {
-            var type = messages[this.selectedMessageIndex].Type;
-            var classType = assembly.GetType(type);
-            var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
-            Events.ProductLocationsModified a = Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified.ParseFrom(message.ToByteString());
+            if (json == null) throw new ArgumentNullException("json");
+            // Verify if message type implements IMessage
+            if (!typeof(IMessage).IsAssignableFrom(messageType)) throw new ArgumentException("messageType should implement IMessage interface");
+            
+            //MethodInfo parseMethod = messageType.GetMethod("CreateBuilder",);
+            //var builder = parseMethod.Invoke(null, new object[] {}) as IBuilderLite;
+
+            return null;
         }
+
+        //private void ChangeSequenceNumber(IMessage selectedMessage)
+        //{
+        //    var type = messages[this.selectedMessageIndex].Type;
+        //    var classType = assembly.GetType(type);
+        //    var message = ParseMessage(messages[this.selectedMessageIndex].MessageContent.Message, classType);
+        //    Events.ProductLocationsModified a = Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified.ParseFrom(message.ToByteString());
+        //}
 
         private static IMessage ParseMessage(string messageBase64, Type messageType)
         {
