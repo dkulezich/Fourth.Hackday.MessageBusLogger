@@ -146,7 +146,7 @@ namespace MessageBusLogger_WPF
             gridMessages.ItemsSource = messages.Select(m => new
             {
                 DateTime = m.Date,
-                Type = m.Type,
+                Type = m.Type.Replace(ASSEMBLY_NAME + ".", ""),
                 Source = m.SourceSystem,
                 Endpoint = m.MessageBusEndpoint,
                 TrackingId = m.TrackingId
@@ -188,8 +188,6 @@ namespace MessageBusLogger_WPF
 
         private void btnResendMessage_Click(object sender, RoutedEventArgs e)
         {
-            string messageText = new TextRange(txtMessages.Document.ContentStart, txtMessages.Document.ContentEnd).Text;
-
             var connectionString = txtResendString.Text;
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -291,7 +289,13 @@ namespace MessageBusLogger_WPF
                 
             }
         }
-                
-        
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (messageEventListener != null)
+            {
+                messageEventListener.StopListen();
+            }
+        }
     }
 }
