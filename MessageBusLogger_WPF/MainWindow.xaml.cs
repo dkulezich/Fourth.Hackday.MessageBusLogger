@@ -19,6 +19,8 @@ using MahApps.Metro.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using Fourth.Orchestration.Messaging;
+using Fourth.Orchestration.Storage;
 
 namespace MessageBusLogger_WPF
 {
@@ -65,8 +67,22 @@ namespace MessageBusLogger_WPF
                     messageEventListener = new MessageEventListener(SUBSCRIPTION_NAME, connectionStringCurrentConnected);
                     var task = Task.Run(() =>
                     {
-                        messageEventListener.StartListen();
+                        try
+                        {
+                            messageEventListener.StartListen();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     });
+
+                    //IMessageStore messageStore = new AzureMessageStore();
+                    //IMessagingFactory messageFactory = new AzureMessagingFactory(messageStore);
+                    //IMessageListener messageListener = messageFactory.CreateMessageListener("test_message");
+                    //var messageHandler = new MessageHandler<Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified>("test");
+                    //messageListener.RegisterHandlers(messageHandler);
+                    //messageListener.StartListener();
 
                     btnSubscribe.Visibility = Visibility.Hidden;
                     btnDisconnect.Visibility = Visibility.Visible;

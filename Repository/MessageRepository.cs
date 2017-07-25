@@ -70,11 +70,8 @@ namespace Repository
             using (var dbContext = new MessageContext())
             {
                 var query = dbContext.MessagesDetails.AsQueryable();
-
-
-                 query = query.Where(c => c.Date >= filter.StartDate);
-
-                 query = query.Where(c => c.Date <= filter.EndDate);
+                query = query.Where(c => c.Date >= filter.StartDate);
+                query = query.Where(c => c.Date <= filter.EndDate);
 
                 if (!string.IsNullOrEmpty(filter.Type))
                 {
@@ -91,7 +88,7 @@ namespace Repository
                     query = query.Where(m => m.MessageBusEndpoint.Equals(filter.Endpoint));
                 }
 
-                messages = query.OrderByDescending(x => x.Date).Take(filter.MaxCount)
+                messages = query.OrderByDescending(x => x.Id).Take(filter.MaxCount)
                         .Include(m => m.MessageContent).ToList();
             }
 
