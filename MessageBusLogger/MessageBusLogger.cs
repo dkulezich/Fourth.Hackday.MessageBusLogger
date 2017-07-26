@@ -233,8 +233,8 @@ namespace MessageBusLogger
             if (json == null) throw new ArgumentNullException("json");
             // Verify if message type implements IMessage
             if (!typeof(IMessage).IsAssignableFrom(messageType)) throw new ArgumentException("messageType should implement IMessage interface");
-            
-            //MethodInfo parseMethod = messageType.GetMethod("CreateBuilder",);
+
+            //MethodInfo parseMethod = messageType.GetMethod("CreateBuilder"); //new[] { }
             //var builder = parseMethod.Invoke(null, new object[] {}) as IBuilderLite;
 
             return null;

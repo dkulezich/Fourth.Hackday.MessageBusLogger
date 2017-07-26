@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +18,6 @@ using MahApps.Metro.Controls;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Fourth.Orchestration.Messaging;
-using Fourth.Orchestration.Storage;
 
 namespace MessageBusLogger_WPF
 {
@@ -30,7 +27,6 @@ namespace MessageBusLogger_WPF
     public partial class MainWindow : MetroWindow
     {
         private const string SUBSCRIPTION_NAME = "MessageBusLogger";
-        //private const string SUBSCRIPTION_NAME = "ilian";
         private const string ASSEMBLY_NAME = "Fourth.Orchestration.Model";
         private const string ALL_TYPES = "All types";
         private const string ALL_SYSTEMS = "All systems";
@@ -76,14 +72,7 @@ namespace MessageBusLogger_WPF
                             MessageBox.Show(ex.Message);
                         }
                     });
-
-                    //IMessageStore messageStore = new AzureMessageStore();
-                    //IMessagingFactory messageFactory = new AzureMessagingFactory(messageStore);
-                    //IMessageListener messageListener = messageFactory.CreateMessageListener("test_message");
-                    //var messageHandler = new MessageHandler<Fourth.Orchestration.Model.ProductCatalogue.Events.ProductLocationsModified>("test");
-                    //messageListener.RegisterHandlers(messageHandler);
-                    //messageListener.StartListener();
-
+                    
                     btnSubscribe.Visibility = Visibility.Hidden;
                     btnDisconnect.Visibility = Visibility.Visible;
                     txtConnectionStringListener.IsEnabled = false;
