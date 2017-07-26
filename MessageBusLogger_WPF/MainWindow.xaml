@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MessageBusLogger_WPF"
         mc:Ignorable="d"
-        Title="Message Bus Logger" Height="760" Width="900" MinWidth="900" MinHeight="760" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" Background="White" ResizeMode="CanResize" Closing="MetroWindow_Closing">
+        Title="Message Bus Logger" Height="760" Width="1125" MinWidth="1125" MinHeight="760" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" Background="White" ResizeMode="CanResize" Closing="MetroWindow_Closing">
     <Grid x:Name="MainGrid" Margin="0" MinHeight="760" MinWidth="890">
         <Grid.RowDefinitions>
             <RowDefinition Height="63"></RowDefinition>
@@ -20,11 +20,11 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0" x:Name="gridMessages" Margin="10,0,0,0" SelectionChanged="gridMessages_SelectionChanged" BorderThickness="1" BorderBrush="#FFCCCCCC" MinHeight="400"/>
+            <DataGrid Grid.Column="0" x:Name="gridMessages" Margin="10,0,0,0" SelectionChanged="gridMessages_SelectionChanged" BorderThickness="1" BorderBrush="#FFCCCCCC" MinHeight="400" CanUserSortColumns="False" SelectionMode="Single" GridLinesVisibility="Vertical"/>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
             <TextBox Grid.Column="2" x:Name="txtFind" Margin="0,0,130,402" TextWrapping="NoWrap" VerticalAlignment="Top" Height="26" KeyUp="txtFind_KeyUp"/>
             <Button Grid.Column="2" x:Name="btnFind" Content="Find" HorizontalAlignment="Right" Margin="10,0,10,402" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.196,0.785" BorderBrush="#CC119EDA" Style="{StaticResource AccentedSquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" FontSize="10"  VerticalContentAlignment="Center" Height="26" Click="btnFind_Click"/>
-            <RichTextBox Grid.Column="2" x:Name="txtMessages" Margin="0,30,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinHeight="369" MinWidth="427" FontSize="16">
+            <RichTextBox Grid.Column="2" x:Name="txtMessages" Margin="0,30,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinHeight="369" MinWidth="427" FontSize="16" Block.LineHeight="6">
                 <FlowDocument/>
             </RichTextBox>
         </Grid>
