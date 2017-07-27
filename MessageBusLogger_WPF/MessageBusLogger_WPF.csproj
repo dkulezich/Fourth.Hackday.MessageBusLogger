@@ -189,9 +189,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon_a4t_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon_1MH_2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
