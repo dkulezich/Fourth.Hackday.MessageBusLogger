@@ -31,22 +31,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fourth.Orchestration, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.1.2.90\lib\net452\Fourth.Orchestration.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.1.2.106\lib\net452\Fourth.Orchestration.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fourth.Orchestration.Messaging.Azure, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.1.2.90\lib\net452\Fourth.Orchestration.Messaging.Azure.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.1.2.106\lib\net452\Fourth.Orchestration.Messaging.Azure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fourth.Orchestration.Messaging.MsmqBuffer, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.1.2.90\lib\net452\Fourth.Orchestration.Messaging.MsmqBuffer.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.1.2.106\lib\net452\Fourth.Orchestration.Messaging.MsmqBuffer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fourth.Orchestration.Messaging.SharedMemoryStub, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.1.2.90\lib\net452\Fourth.Orchestration.Messaging.SharedMemoryStub.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.1.2.106\lib\net452\Fourth.Orchestration.Messaging.SharedMemoryStub.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fourth.Orchestration.Model, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.Model.1.2.90\lib\net452\Fourth.Orchestration.Model.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.Model.1.2.106\lib\net452\Fourth.Orchestration.Model.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fourth.Orchestration.Storage.Azure, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fourth.Orchestration.1.2.90\lib\net452\Fourth.Orchestration.Storage.Azure.dll</HintPath>
+      <HintPath>..\packages\Fourth.Orchestration.1.2.106\lib\net452\Fourth.Orchestration.Storage.Azure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Google.ProtocolBuffers, Version=2.4.1.555, Culture=neutral, PublicKeyToken=55f7125234beb589, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.ProtocolBuffers.2.4.1.555\lib\net40\Google.ProtocolBuffers.dll</HintPath>
